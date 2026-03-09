@@ -8,17 +8,6 @@
     <meta charset="UTF-8">
     <title>{{ $titulo }}</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #1f4037, #99f2c8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            color: white;
-        }
 
         .container {
             background: rgba(0, 0, 0, 0.6);

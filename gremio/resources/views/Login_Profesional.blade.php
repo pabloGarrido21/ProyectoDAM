@@ -1,6 +1,7 @@
 @props([
     'usuario' => '',
-    'passw' => ''
+    'passw' => '',
+    'origen' => 'PROFESIONAL'
 ])
 
 @if(session('error'))
@@ -8,6 +9,21 @@
         alert("{{ session('error') }}");
     </script>
 @endif
+
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #1f3740 , #9bd3ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        color: white;
+    }
+</style>
 
 
 <x-layout_login titulo="LOGIN Profesional">
@@ -22,8 +38,9 @@
             <text>USUARIO</text>
             <input  type="text" name="usuario"  value="<?php echo $usuario;?>">
             <br></br>CONTRASEÑA
-            <input  type="text" name="passw"  value="<?php echo $passw;?>">
+            <input  type="password" name="passw"  value="<?php echo $passw;?>">
             <br></br>
+            <input type="hidden" name="origen" value="<?php echo $origen;?>">
 
             <!-- Botones -->
 
@@ -33,7 +50,7 @@
             </button>
 
             <!-- onclick="location.href='/Login_Socio';"-->
-            <button class="btn socios">
+            <button class="btn socios" onclick="action='/Envia_Registro';">
                 Registrarse
             </button>
 

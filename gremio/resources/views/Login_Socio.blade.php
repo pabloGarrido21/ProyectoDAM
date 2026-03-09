@@ -10,6 +10,19 @@
     </script>
 @endif
 
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #1f4037, #99f2c8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        color: white;
+    }
+</style>
 
 <x-layout_login titulo="LOGIN Socio">
 
@@ -23,7 +36,7 @@
             <text>USUARIO</text>
             <input  type="text" name="usuario"  value="<?php echo $usuario;?>">
             <br></br>CONTRASEÑA
-            <input  type="text" name="passw"  value="<?php echo $passw;?>">
+            <input  type="password" name="passw"  value="<?php echo $passw;?>">
             <br></br>
             <input type="hidden" name="origen" value="<?php echo $origen;?>">
 

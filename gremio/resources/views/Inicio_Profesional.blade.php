@@ -1,27 +1,36 @@
 @props([
-    'email' => session('email'),
-    'nombre' => session('nombre'),
-    'apellido' => session('apellido'),
-    'telefono' => session('telefono'),
-    'direccion' => session('direccion'),
+    'profesional' => session('profesional'),
     'ciudad' => session('ciudad'),
-    'cod_pos' => session('cod_pos'),
-    'profesion' => session('profesion')
+    'sector' => session('sector')
 ])
 
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #1f3740 , #9bd3ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        color: white;
+    }
+</style>
 
-<x-layout_login titulo="Inicio Profesional">
+
+<x-layout_Inicio titulo="Inicio Profesional">
 
     <form method="POST" >
         @csrf
 
         <div class="container">
-            <h1>USUARIO: {{$email}}</h1>
-            <h1>NOMBRE: {{$nombre}}      APELLIDOS: {{$apellido}}</h1>
-            <h1>TELE: {{$telefono}}</h1>
-            <h1>DIRECCIÓN: {{$direccion}}</h1>
-            <h1>CIUDAD: {{$ciudad}}     COD_POSTAL: {{$cod_pos}}</h1>
-            <h1>PROFESION: {{$profesion}}</h1>
+            <h1>USUARIO: {{$profesional->email}}</h1>
+            <h1>NOMBRE: {{$profesional->nombre}}  APELLIDOS: {{$profesional->apellido}}</h1>
+            <h1>TELE: {{$profesional->telefono}}</h1>
+            <h1>DIRECCIÓN: {{$profesional->direccion}}</h1>
+            <h1>CIUDAD: {{$ciudad->nombre}}     COD_POSTAL: {{$ciudad->codigo_postal}}</h1>
+            <h1>PROFESION: {{$sector->nombre}}</h1>
 
 
             <!-- onclick="location.href='/Login_Socio';" -->
@@ -32,4 +41,4 @@
 
     </form>
 
-</x-layout_login>
+</x-layout_Inicio>
