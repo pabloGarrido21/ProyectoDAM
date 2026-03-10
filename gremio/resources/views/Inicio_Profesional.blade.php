@@ -6,14 +6,13 @@
 
 <style>
     body {
-        margin: 0;
+        margin: 100px;
         font-family: Arial, sans-serif;
         background: linear-gradient(to right, #1f3740 , #9bd3ff);
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        text-align: center;
         color: white;
     }
 </style>
@@ -21,24 +20,26 @@
 
 <x-layout_Inicio titulo="Inicio Profesional">
 
-    <form method="POST" >
-        @csrf
+            <text>USUARIO: {{$profesional->email}}</text>
 
-        <div class="container">
-            <h1>USUARIO: {{$profesional->email}}</h1>
-            <h1>NOMBRE: {{$profesional->nombre}}  APELLIDOS: {{$profesional->apellido}}</h1>
-            <h1>TELE: {{$profesional->telefono}}</h1>
-            <h1>DIRECCIÓN: {{$profesional->direccion}}</h1>
-            <h1>CIUDAD: {{$ciudad->nombre}}     COD_POSTAL: {{$ciudad->codigo_postal}}</h1>
-            <h1>PROFESION: {{$sector->nombre}}</h1>
+            <br>
 
+            <text>NOMBRE: {{$profesional->nombre}} </text>
+            <text> APELLIDOS: {{$profesional->apellido}}</text>
 
-            <!-- onclick="location.href='/Login_Socio';" -->
-            <button class="volver"  onclick="action='/';">
-                Volver
-            </button>
-        </div>
+            <br>
 
-    </form>
+            <text>TELE: {{$profesional->telefono}}</text>
+            <text>DIRECCIÓN: {{$profesional->direccion}}</text>
+
+            <br>
+
+            <text>CIUDAD: {{$ciudad->nombre}} </text>
+            <text>COD_POSTAL: {{$ciudad->codigo_postal}}</text>
+
+            <br>
+
+            <text>PROFESION: {{$sector->nombre}}</text>
+
 
 </x-layout_Inicio>

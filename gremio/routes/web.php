@@ -30,9 +30,12 @@ Route::get('/Ini_Socio', [LoginController::class, 'Ini_Socio']);
 //Parte de Profesional
 Route::get('/Login_Profesional', [LoginController::class, 'Login_Profesional']);
 Route::post('/Login_Profesional', [LoginController::class, 'Comprueba_Profesional']);
-Route::get('/Ini_Profesional', [LoginController::class, 'Ini_Profesional']);
 
 Route::get('/Registro_Profesional', [RegistroController::class, 'Registro_Profesional']);
+Route::post('/Registro_Profesional', [RegistroController::class, 'Comprueba_Profesional']);
+
+Route::get('/Ini_Profesional', [LoginController::class, 'Ini_Profesional']);
+
 
 
 Route::post('/Envia_Registro', [EnviaFormController::class, 'Envia_Registro']);

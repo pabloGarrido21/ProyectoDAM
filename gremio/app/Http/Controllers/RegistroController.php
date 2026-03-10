@@ -22,20 +22,29 @@ class RegistroController extends Controller
         $ciudades =DB::table("ciudad")->
             orderBy('nombre')->get();
 
+        if($_POST['usuario'] === "")
+        {
+            return redirect('/Registro_Socio')->
+                with('error', 'Falta introducir el usuario')->
+                with('ciudades', $ciudades);
+
+        }
+
         if (count($query) > 0) {
             return redirect('/Registro_Socio')->
                 with('error', 'Usuario ya existe')->
                 with('ciudades', $ciudades);
         }
 
-        if($_POST['passw'] != $_POST['passw2'])
+        if($_POST['passw'] != $_POST['passw2'] or $_POST['passw'] === "")
         {
             return redirect('/Registro_Socio')->
-                with('error', 'Se ha equivocado al repetir la contraseña')->
+                with('error', 'Falta Confirmar Contraseña')->
                 with('ciudades', $ciudades);
         }
 
-        if($_POST['nombre'] != '' and $_POST['apellido'] != '')
+        if($_POST['nombre'] != '' and $_POST['apellido'] != ''
+            and $_POST['telefono'] != '' and $_POST['direccion'] != '')
         {
 
             DB::table("socio")->insert([
@@ -45,7 +54,7 @@ class RegistroController extends Controller
                 'apellido' => $_POST['apellido'],
                 'telefono' => $_POST['telefono'],
                 'direccion' => $_POST['direccion'],
-                'ciudad' => $_POST['ciudad'],
+                'ciudad' => $_POST['ciudad']
             ]);
 
             $query = DB::table("socio")->where(
@@ -61,7 +70,7 @@ class RegistroController extends Controller
 
 
         return redirect('/Registro_Socio')->
-            with('error', 'Error Indefinido')->
+            with('error', 'Datos Personales no Aportados')->
             with('ciudades', $ciudades);
     }
 
@@ -79,25 +88,70 @@ class RegistroController extends Controller
         $query = DB::table("profesional")->where(
             "email", "=", $_POST['usuario'])->get();
 
-        if (count($query) > 0) {
+        $ciudades =DB::table("ciudad")->
+        orderBy('nombre')->get();
 
-            $ciudad =DB::table("ciudad")->
-            where('id', '=', $query[0]->ciudad)->get();
+        $sectores =DB::table("sector")->
+        orderBy('nombre')->get();
 
-            $sector =DB::table("sector")->
-            where('id', '=', $query[0]->profesion)->get();
+        if($_POST['usuario'] === "")
+        {
+            return redirect('/Registro_Profesional')->
+            with('error', 'Falta introducir el usuario')->
+            with('ciudades', $ciudades)->
+            with('sectores', $sectores);
 
-            return redirect('/Ini_Profesional')->
-            with('email',$query[0]->email)->
-            with('nombre',$query[0]->nombre)->
-            with('apellido',$query[0]->apellido)->
-            with('telefono',$query[0]->telefono)->
-            with('direccion',$query[0]->direccion)->
-            with('ciudad',$ciudad[0]->nombre)->
-            with('cod_pos',$ciudad[0]->codigo_postal)->
-            with('sector',$sector[0]->nombre);
         }
 
-        return redirect('/Registro_Socio')->with('error', 'Datos incorrectos');
+        if (count($query) > 0) {
+            return redirect('/Registro_Profesional')->
+            with('error', 'Usuario ya existe')->
+            with('ciudades', $ciudades)->
+            with('sectores', $sectores);
+        }
+
+        if($_POST['passw'] != $_POST['passw2'] or $_POST['passw'] === "")
+        {
+            return redirect('/Registro_Profesional')->
+            with('error', 'Falta Confirmar Contraseña')->
+            with('ciudades', $ciudades)->
+            with('sectores', $sectores);
+        }
+
+        if($_POST['nombre'] != '' and $_POST['apellido'] != ''
+            and $_POST['telefono'] != '' and $_POST['direccion'] != '')
+        {
+
+            DB::table("profesional")->insert([
+                'email' => $_POST['usuario'],
+                'password' => $_POST['passw'],
+                'nombre' => $_POST['nombre'],
+                'apellido' => $_POST['apellido'],
+                'telefono' => $_POST['telefono'],
+                'direccion' => $_POST['direccion'],
+                'ciudad' => $_POST['ciudad'],
+                'profesion' => $_POST['sector']
+            ]);
+
+            $query = DB::table("profesional")->where(
+                "email", "=", $_POST['usuario'])->get();
+
+            $ciudad =DB::table("ciudad")->
+            where('id', '=', $_POST['ciudad'])->get();
+
+            $sector =DB::table("sector")->
+            where('id', '=', $_POST['sector'])->get();
+
+            return redirect('/Ini_Profesional')->
+            with('profesional',$query[0])->
+            with('ciudad',$ciudad[0])->
+            with('sector',$sector[0]);
+        }
+
+
+        return redirect('/Registro_Profesional')->
+        with('error', 'Datos Personales no Aportados')->
+        with('ciudades', $ciudades)->
+        with('sectores', $sectores);
     }
 }

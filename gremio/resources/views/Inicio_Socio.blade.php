@@ -5,14 +5,13 @@
 
 <style>
     body {
-        margin: 0;
+        margin: 100px;
         font-family: Arial, sans-serif;
         background: linear-gradient(to right, #1f4037, #99f2c8);
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        text-align: center;
         color: white;
     }
 </style>
@@ -20,23 +19,22 @@
 
 <x-layout_Inicio titulo="Inicio Socio">
 
-    <form method="POST" >
-        @csrf
+            <text>USUARIO: {{$socio->email}}</text>
 
-        <div class="container">
-            <h1>USUARIO: {{$socio->email}}</h1>
-            <h1>NOMBRE: {{$socio->nombre}}      APELLIDOS: {{$socio->apellido}}</h1>
-            <h1>TELE: {{$socio->telefono}}</h1>
-            <h1>DIRECCIÓN: {{$socio->direccion}}</h1>
-            <h1>CIUDAD: {{$ciudad->nombre}}     COD_POSTAL: {{$ciudad->codigo_postal}}</h1>
+            <br>
 
+            <text>NOMBRE: {{$socio->nombre}} </text>
+            <text> APELLIDOS: {{$socio->apellido}}</text>
 
-            <!-- onclick="location.href='/Login_Socio';" -->
-            <button class="volver"  onclick="action='/';">
-                Volver
-            </button>
-        </div>
+            <br>
 
-    </form>
+            <text>TELE: {{$socio->telefono}} </text>
+            <text>DIRECCIÓN: {{$socio->direccion}} </text>
+
+            <br>
+
+            <text>CIUDAD: {{$ciudad->nombre}} </text>
+            <text>COD POSTAL: {{$ciudad->codigo_postal}}</text>
+
 
 </x-layout_Inicio>
