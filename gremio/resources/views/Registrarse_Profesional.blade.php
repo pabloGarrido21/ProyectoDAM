@@ -25,7 +25,7 @@
 </style>
 
 
-<x-layout_Registrarse tituloA="REGISTRO prof" tituloB="Registro Profesional"
+<x-layout_Modifica_Datos tituloA="REGISTRO prof" tituloB="Registro Profesional"
                       origen="PROFESIONAL" envia="/Registro_Profesional">
 
 
@@ -42,5 +42,5 @@
     <br></br>
 
 
-</x-layout_Registrarse>
+</x-layout_Modifica_Datos>
 

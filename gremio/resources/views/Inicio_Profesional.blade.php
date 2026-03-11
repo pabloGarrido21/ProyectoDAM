@@ -1,7 +1,8 @@
 @props([
     'profesional' => session('profesional'),
     'ciudad' => session('ciudad'),
-    'sector' => session('sector')
+    'sector' => session('sector'),
+    'origen' => 'PROFESIONAL'
 ])
 
 <style>
@@ -40,6 +41,12 @@
             <br>
 
             <text>PROFESION: {{$sector->nombre}}</text>
+
+
+    <input type="hidden" name="origen" value="<?php echo $origen;?>">
+    <input type="hidden" name="original" value="<?php echo $profesional->email;?>">
+    <input type="hidden" name="ciudad" value="<?php echo $ciudad->nombre;?>">
+    <input type="hidden" name="sector" value="<?php echo $sector->nombre;?>">
 
 
 </x-layout_Inicio>

@@ -140,13 +140,13 @@
         <div class="container2">
 
             <!-- onclick="location.href='/Login_Socio';" -->
-            <button class="btn izquierda"  onclick="action='/';">
+            <button class="btn izquierda"  onclick="action='/Envia_Modifica';">
                 Modificar mis Datos
             </button>
 
             <!-- onclick="location.href='/Login_Socio';" -->
             <button class="btn volver"  onclick="action='/';">
-                Volver
+                Cerrar Sesion
             </button>
 
             <!-- onclick="location.href='/Login_Socio';" -->

@@ -1,6 +1,7 @@
 @props([
     'socio' => session('socio'),
-    'ciudad' => session('ciudad')
+    'ciudad' => session('ciudad'),
+    'origen' => 'SOCIO'
 ])
 
 <style>
@@ -19,6 +20,8 @@
 
 <x-layout_Inicio titulo="Inicio Socio">
 
+
+
             <text>USUARIO: {{$socio->email}}</text>
 
             <br>
@@ -35,6 +38,11 @@
 
             <text>CIUDAD: {{$ciudad->nombre}} </text>
             <text>COD POSTAL: {{$ciudad->codigo_postal}}</text>
+
+    <input type="hidden" name="origen" value="<?php echo $origen;?>">
+    <input type="hidden" name="original" value="<?php echo $socio->email;?>">
+    <input type="hidden" name="ciudad" value="<?php echo $ciudad->nombre;?>">
+
 
 
 </x-layout_Inicio>

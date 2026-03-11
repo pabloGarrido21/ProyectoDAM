@@ -19,8 +19,8 @@
     }
 </style>
 
-<x-layout_Registrarse tituloA="REGISTRO Socio" tituloB="Registro Socio"
-                      origen="SOCIO" envia="/Registro_Socio">
+<x-layout_Modifica_Datos tituloA="MODIFICAR Socio" tituloB="Modificar Socio"
+                      origen="SOCIO" envia="/Modificar_Socio">
 
 
-</x-layout_Registrarse>
+</x-layout_Modifica_Datos>
