@@ -3,11 +3,12 @@
     'ciudad' => session('ciudad'),
     'sector' => session('sector'),
     'origen' => 'PROFESIONAL'
+
 ])
 
 <style>
     body {
-        margin: 100px;
+        margin: 70px;
         font-family: Arial, sans-serif;
         background: linear-gradient(to right, #1f3740 , #9bd3ff);
         display: flex;
@@ -16,31 +17,35 @@
         height: 100vh;
         color: white;
     }
+
+
 </style>
 
 
-<x-layout_Inicio titulo="Inicio Profesional">
+<x-layout_Inicio titulo="Inicio Profesional" titulo2="CONTRATOS ACTIVOS" accion="/Ini_Profesional/">
 
-            <text>USUARIO: {{$profesional->email}}</text>
+    <div class="usuario">
+        <label>USUARIO:</label> <text>{{$profesional->email}}</text>
+    </div>
 
-            <br>
+    <div class="fila">
+        <div> <label> NOMBRE: </label> <text>{{$profesional->nombre}}</text> </div>
+        <div> <label> APELLIDOS: </label> <text>{{$profesional->apellido}}</text> </div>
+    </div>
 
-            <text>NOMBRE: {{$profesional->nombre}} </text>
-            <text> APELLIDOS: {{$profesional->apellido}}</text>
+    <div class="fila">
+        <div>  <label> TELE: </label> <text>{{$profesional->telefono}}</text> </div>
+        <div> <label> DIRECCIÓN: </label> <text>{{$profesional->direccion}}</text> </div>
+    </div>
 
-            <br>
+    <div class="fila">
+        <div> <label> CIUDAD: </label> <text>{{$ciudad->nombre}}</text> </div>
+        <div> <label> COD POSTAL: </label> <text>{{$ciudad->codigo_postal}}</text> </div>
+    </div>
 
-            <text>TELE: {{$profesional->telefono}}</text>
-            <text>DIRECCIÓN: {{$profesional->direccion}}</text>
-
-            <br>
-
-            <text>CIUDAD: {{$ciudad->nombre}} </text>
-            <text>COD_POSTAL: {{$ciudad->codigo_postal}}</text>
-
-            <br>
-
-            <text>PROFESION: {{$sector->nombre}}</text>
+    <div class="fila">
+        <div> <label> SECTOR: </label> <text>{{$sector->nombre}}</text> </div>
+    </div>
 
 
     <input type="hidden" name="origen" value="<?php echo $origen;?>">

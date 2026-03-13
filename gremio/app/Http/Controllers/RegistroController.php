@@ -63,9 +63,14 @@ class RegistroController extends Controller
             $ciudad =DB::table("ciudad")->
             where('id', '=', $_POST['ciudad'])->get();
 
+            $datos = DB::table("socio")->
+            select('email','nombre','apellido')->get();
+
             return redirect('/Ini_Socio')->
             with('socio',$query[0])->
-            with('ciudad',$ciudad[0]);
+            with('ciudad',$ciudad[0])->
+            with('tipo','SOCIO')->
+            with('datos',$datos);
         }
 
 
@@ -142,10 +147,15 @@ class RegistroController extends Controller
             $sector =DB::table("sector")->
             where('id', '=', $_POST['sector'])->get();
 
+            $datos = DB::table("profesional")->
+            select('email','nombre','apellido')->get();
+
             return redirect('/Ini_Profesional')->
             with('profesional',$query[0])->
             with('ciudad',$ciudad[0])->
-            with('sector',$sector[0]);
+            with('sector',$sector[0])->
+            with('tipo','PROFESIONAL')->
+            with('datos',$datos);
         }
 
 

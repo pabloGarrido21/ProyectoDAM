@@ -107,9 +107,14 @@ class EnviaFormController extends Controller
             $ciudad =DB::table("ciudad")->
             where('nombre', '=', $_POST['ciudad'])->get();
 
+            $datos = DB::table("socio")->
+            select('email','nombre','apellido')->get();
+
             return redirect('/Ini_Socio')->
             with('socio',$query[0])->
-            with('ciudad',$ciudad[0]);
+            with('ciudad',$ciudad[0])->
+            with('tipo','SOCIO')->
+            with('datos',$datos);
         }
 
         if($_POST['origen'] === 'PROFESIONAL')
@@ -123,10 +128,15 @@ class EnviaFormController extends Controller
             $sector =DB::table("sector")->
             where('nombre', '=', $_POST['sector'])->get();
 
+            $datos = DB::table("profesional")->
+            select('email','nombre','apellido')->get();
+
             return redirect('/Ini_Profesional')->
             with('profesional',$query[0])->
             with('ciudad',$ciudad[0])->
-            with('sector',$sector[0]);
+            with('sector',$sector[0])->
+            with('tipo','PROFESIONAL')->
+            with('datos',$datos);
         }
 
         return redirect('/Login_Socio')->with('error', '¿COMO HAS LLEGADO HASTA AQUI?');

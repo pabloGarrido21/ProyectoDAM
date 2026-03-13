@@ -1,6 +1,16 @@
 @props([
-    'titulo'=>'Sin Título'
+    'titulo'=>'Sin Título',
+    'titulo2'=>'Sin Título',
+    'tipo'=>session('tipo'),
+    'accion' =>'',
+    'datos' =>session('datos')
+
 ])
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -11,14 +21,14 @@
 
         .container {
             background: rgba(0, 0, 0, 0.6);
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
             width: 1200px;
         }
 
         .container2 {
             background: rgba(0, 0, 0, 0.6);
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
             width: 1200px;
             text-align: center;
@@ -33,14 +43,29 @@
 
         h1 {
             margin-bottom: 30px;
-            font-size: 40px;
+            font-size: 30px;
             text-align: center;
         }
 
         text{
-            font-size: 30px;
-            text-align: left;
+            font-size: 25px;
 
+        }
+
+
+        label{
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        .usuario{
+            margin-bottom: 30px;
+        }
+
+        .fila{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 15px;
         }
 
         table {
@@ -72,21 +97,20 @@
 
         }
 
-        .volver{
-            align-self: center;
+        .divi{
+            text-align: right;
         }
 
         .izquierda {
             background-color: #007BFF;
             color: white;
-            align-self: flex-start;
+            text-align: left;
 
         }
 
         .derecha {
             background-color: #28A745;
             color: white;
-            align-self: flex-end;
 
         }
 
@@ -101,58 +125,58 @@
         @csrf
 
         <div class="container">
-            <h1>MIS DATOS</h1>
+            <h1>
+                MIS DATOS
+                <input type="image" src="https://illustoon.com/photo/3127.png"
+                       alt="Submit" width="48" height="48" onclick="action='/Envia_Modifica';">
+            </h1>
+
 
             {{ $slot }}
+            <br>
+
+            <div class="fila">
+                <div>
+                    <button class="btn volver"  onclick="action='/';">
+                        Cerrar Sesion
+                    </button>
+                </div>
+                <div class="divi">
+                    <button class="btn derecha"  onclick="action='/';">
+                        Ofertas
+                    </button>
+                </div>
+            </div>
 
         </div>
 
-        <br><br>
+        <br>
 
         <div class="container2">
 
-            <h1>CONTRATOS ACTIVOS</h1>
+            <h1>
+                {{$titulo2}}
+                <input type="image" src="https://illustoon.com/photo/3127.png"
+                       alt="Submit" width="48" height="48" onclick="action='{{ $accion }}{{ $tipo }}';">
+            </h1>
 
             <table>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Edad</th>
-                    <th>Ciudad</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                    </tr>
+                </thead>
 
-                <tr>
-                    <td>Juan</td>
-                    <td>25</td>
-                    <td>Madrid</td>
-                </tr>
-
-                <tr>
-                    <td>Ana</td>
-                    <td>30</td>
-                    <td>Sevilla</td>
-                </tr>
+                @foreach ($datos as $fila)
+                    <tr>
+                        <td>{{ $fila->email }}</td>
+                        <td>{{ $fila->nombre }}</td>
+                        <td>{{ $fila->apellido }}</td>
+                    </tr>
+                @endforeach
             </table>
-
-        </div>
-
-        <br><br>
-
-        <div class="container2">
-
-            <!-- onclick="location.href='/Login_Socio';" -->
-            <button class="btn izquierda"  onclick="action='/Envia_Modifica';">
-                Modificar mis Datos
-            </button>
-
-            <!-- onclick="location.href='/Login_Socio';" -->
-            <button class="btn volver"  onclick="action='/';">
-                Cerrar Sesion
-            </button>
-
-            <!-- onclick="location.href='/Login_Socio';" -->
-            <button class="btn derecha"  onclick="action='/';">
-                Buscar Ofertas
-            </button>
 
         </div>
 
