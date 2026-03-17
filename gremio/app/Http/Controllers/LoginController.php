@@ -18,22 +18,22 @@ class LoginController extends Controller
 
     public function Comprueba_Socio()
     {
-        $query = DB::table("socio")->where(
-            "email", "=", $_POST['usuario'])->Where(
-            "password","=",$_POST['passw'])->get();
+        $query = DB::table("socio")->
+            join("ciudad","socio.ciudad","=","ciudad.id")->
+            select("socio.*",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos")->
+        where("email", "=", $_POST['usuario'])->
+        Where("password","=",$_POST['passw'])->get();
 
         if (count($query) > 0) {
-
-            $ciudad =DB::table("ciudad")->
-             where('id', '=', $query[0]->ciudad)->get();
 
             $datos = DB::table("socio")->
             select('email','nombre','apellido')->get();
 
             return redirect('/Ini_Socio')->
             with('socio',$query[0])->
-            with('ciudad',$ciudad[0])->
-            with('tipo','SOICO')->
+            with('tipo','SOCIO')->
             with('datos',$datos);
         }
 
@@ -59,25 +59,23 @@ class LoginController extends Controller
 
     public function Comprueba_Profesional()
     {
-        $query = DB::table("profesional")->where(
-            "email", "=", $_POST['usuario'])->Where(
+        $query = DB::table("profesional")->
+        join("ciudad","profesional.ciudad","=","ciudad.id")->
+        join("sector","profesional.profesion","=","sector.id")->
+        select("profesional.*",
+            "ciudad.nombre as ciudad",
+            "ciudad.codigo_postal as cod_pos",
+            "sector.nombre as sector")->
+        where("email", "=", $_POST['usuario'])->Where(
             "password","=",$_POST['passw'])->get();
 
         if (count($query) > 0) {
-
-            $ciudad =DB::table("ciudad")->
-            where('id', '=', $query[0]->ciudad)->get();
-
-            $prof =DB::table("sector")->
-            where('id', '=', $query[0]->profesion)->get();
 
             $datos = DB::table("profesional")->
             select('email','nombre','apellido')->get();
 
             return redirect('/Ini_Profesional')->
             with('profesional',$query[0])->
-            with('ciudad',$ciudad[0])->
-            with('sector',$prof[0])->
             with('tipo','PROFESIONAL')->
             with('datos',$datos);
         }

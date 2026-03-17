@@ -1,5 +1,7 @@
 @props([
     'profesional' => session('profesional'),
+    'ciudad' => session('ciudad'),
+    'sector' => session('sector'),
     'origen' => 'PROFESIONAL'
 
 ])
@@ -20,7 +22,7 @@
 </style>
 
 
-<x-layout_Inicio titulo="Inicio Profesional" titulo2="CONTRATOS ACTIVOS" accion="/Ini_Profesional/">
+<x-layout_Ofertas titulo="Inicio Profesional" titulo2="CONTRATOS ACTIVOS" accion="/Ini_Profesional/">
 
     <div class="usuario">
         <label>USUARIO:</label> <text>{{$profesional->email}}</text>
@@ -37,17 +39,19 @@
     </div>
 
     <div class="fila">
-        <div> <label> CIUDAD: </label> <text>{{$profesional->ciudad}}</text> </div>
-        <div> <label> COD POSTAL: </label> <text>{{$profesional->cod_pos}}</text> </div>
+        <div> <label> CIUDAD: </label> <text>{{$ciudad->nombre}}</text> </div>
+        <div> <label> COD POSTAL: </label> <text>{{$ciudad->codigo_postal}}</text> </div>
     </div>
 
     <div class="fila">
-        <div> <label> SECTOR: </label> <text>{{$profesional->sector}}</text> </div>
+        <div> <label> SECTOR: </label> <text>{{$sector->nombre}}</text> </div>
     </div>
 
 
     <input type="hidden" name="origen" value="<?php echo $origen;?>">
     <input type="hidden" name="original" value="<?php echo $profesional->email;?>">
+    <input type="hidden" name="ciudad" value="<?php echo $ciudad->nombre;?>">
+    <input type="hidden" name="sector" value="<?php echo $sector->nombre;?>">
 
 
-</x-layout_Inicio>
+</x-layout_Ofertas>

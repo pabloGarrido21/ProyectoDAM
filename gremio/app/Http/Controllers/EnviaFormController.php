@@ -18,16 +18,12 @@ class EnviaFormController extends Controller
         if($_POST['origen'] == 'SOCIO')
         {
             return redirect('/Registro_Socio')->
-            with('usuario',$_POST['socio'])->
-            with('passw',$_POST['passw'])->
             with('ciudades', $ciudades);
         }
 
         if($_POST['origen'] == 'PROFESIONAL')
         {
             return redirect('/Registro_Profesional')->
-            with('usuario',$_POST['profesional'])->
-            with('passw',$_POST['passw'])->
             with('ciudades', $ciudades)->
             with('sectores', $sectores);
         }
@@ -57,37 +53,43 @@ class EnviaFormController extends Controller
         $ciudades =DB::table("ciudad")->
         orderBy('nombre')->get();
 
-        $ciudad  = DB::table("ciudad")->
-        where('nombre', '=', $_POST['ciudad'])->get();
 
         if($_POST['origen'] == 'SOCIO')
         {
             $original = DB::table("socio")->
+            join("ciudad","socio.ciudad","=","ciudad.id")->
+            select("socio.*",
+                "ciudad.id as id_ciudad",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos")->
                 where("email", "=", $_POST['original'])->get();
 
             return redirect('/Modificar_Socio')->
             with('original', $original[0])->
-            with('ciudades', $ciudades)->
-            with('ciudad', $ciudad[0]);
+            with('ciudades', $ciudades);
         }
 
         if($_POST['origen'] == 'PROFESIONAL')
         {
             $original = DB::table("profesional")->
+            join("ciudad","profesional.ciudad","=","ciudad.id")->
+            join("sector","profesional.profesion","=","sector.id")->
+            select("profesional.*",
+                "ciudad.id as id_ciudad",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos",
+                "sector.id as id_sector",
+                "sector.nombre as sector")->
             where("email", "=", $_POST['original'])->get();
 
             $sectores =DB::table("sector")->
             orderBy('nombre')->get();
 
-            $sector  = DB::table("sector")->
-            where('nombre', '=', $_POST['sector'])->get();
 
             return redirect('/Modificar_Profesional')->
             with('original', $original[0])->
             with('ciudades', $ciudades)->
-            with('sectores', $sectores)->
-            with('ciudad', $ciudad[0])->
-            with('sector', $sector[0]);
+            with('sectores', $sectores);
         }
 
 
@@ -101,40 +103,38 @@ class EnviaFormController extends Controller
 
         if('SOCIO' === $_POST['origen'])
         {
-            $query = DB::table("socio")->where(
-                "email", "=", $_POST['original'])->get();
-
-            $ciudad =DB::table("ciudad")->
-            where('nombre', '=', $_POST['ciudad'])->get();
+            $query = DB::table("socio")->
+            join("ciudad","socio.ciudad","=","ciudad.id")->
+            select("socio.*",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos")->
+            where("email", "=", $_POST['original'])->get();
 
             $datos = DB::table("socio")->
             select('email','nombre','apellido')->get();
 
             return redirect('/Ini_Socio')->
             with('socio',$query[0])->
-            with('ciudad',$ciudad[0])->
             with('tipo','SOCIO')->
             with('datos',$datos);
         }
 
         if($_POST['origen'] === 'PROFESIONAL')
         {
-            $query = DB::table("profesional")->where(
-                "email", "=", $_POST['original'])->get();
-
-            $ciudad =DB::table("ciudad")->
-            where('nombre', '=', $_POST['ciudad'])->get();
-
-            $sector =DB::table("sector")->
-            where('nombre', '=', $_POST['sector'])->get();
+            $query = DB::table("profesional")->
+            join("ciudad","profesional.ciudad","=","ciudad.id")->
+            join("sector","profesional.profesion","=","sector.id")->
+            select("profesional.*",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos",
+                "sector.nombre as sector")->
+            where("email", "=", $_POST['original'])->get();
 
             $datos = DB::table("profesional")->
             select('email','nombre','apellido')->get();
 
             return redirect('/Ini_Profesional')->
             with('profesional',$query[0])->
-            with('ciudad',$ciudad[0])->
-            with('sector',$sector[0])->
             with('tipo','PROFESIONAL')->
             with('datos',$datos);
         }

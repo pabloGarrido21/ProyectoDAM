@@ -16,8 +16,8 @@ class RegistroController extends Controller
 
     public function Comprueba_Socio()
     {
-        $query = DB::table("socio")->where(
-            "email", "=", $_POST['usuario'])->get();
+        $query = DB::table("socio")->
+        where("email", "=", $_POST['usuario'])->get();
 
         $ciudades =DB::table("ciudad")->
             orderBy('nombre')->get();
@@ -57,18 +57,19 @@ class RegistroController extends Controller
                 'ciudad' => $_POST['ciudad']
             ]);
 
-            $query = DB::table("socio")->where(
-                "email", "=", $_POST['usuario'])->get();
+            $query = DB::table("socio")->
+            join("ciudad","socio.ciudad","=","ciudad.id")->
+            select("socio.*",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos")->
+            where("email", "=", $_POST['usuario'])->get();
 
-            $ciudad =DB::table("ciudad")->
-            where('id', '=', $_POST['ciudad'])->get();
 
             $datos = DB::table("socio")->
             select('email','nombre','apellido')->get();
 
             return redirect('/Ini_Socio')->
             with('socio',$query[0])->
-            with('ciudad',$ciudad[0])->
             with('tipo','SOCIO')->
             with('datos',$datos);
         }
@@ -138,22 +139,20 @@ class RegistroController extends Controller
                 'profesion' => $_POST['sector']
             ]);
 
-            $query = DB::table("profesional")->where(
-                "email", "=", $_POST['usuario'])->get();
-
-            $ciudad =DB::table("ciudad")->
-            where('id', '=', $_POST['ciudad'])->get();
-
-            $sector =DB::table("sector")->
-            where('id', '=', $_POST['sector'])->get();
+            $query = DB::table("profesional")->
+            join("ciudad","profesional.ciudad","=","ciudad.id")->
+            join("sector","profesional.profesion","=","sector.id")->
+            select("profesional.*",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos",
+                "sector.nombre as sector")->
+            where("email", "=", $_POST['usuario'])->get();
 
             $datos = DB::table("profesional")->
             select('email','nombre','apellido')->get();
 
             return redirect('/Ini_Profesional')->
             with('profesional',$query[0])->
-            with('ciudad',$ciudad[0])->
-            with('sector',$sector[0])->
             with('tipo','PROFESIONAL')->
             with('datos',$datos);
         }

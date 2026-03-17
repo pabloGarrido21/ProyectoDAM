@@ -18,17 +18,19 @@ class ModificaController extends Controller
 
     public function Confirma_Socio()
     {
-        $query = DB::table("socio")->where(
-            "email", "=", $_POST['usuario'])->get();
+        $query = DB::table("socio")->
+        where("email", "=", $_POST['usuario'])->get();
 
         $original = DB::table("socio")->
+        join("ciudad","socio.ciudad","=","ciudad.id")->
+        select("socio.*",
+            "ciudad.id as id_ciudad",
+            "ciudad.nombre as ciudad",
+            "ciudad.codigo_postal as cod_pos")->
         where("email", "=", $_POST['original'])->get();
 
         $ciudades =DB::table("ciudad")->
         orderBy('nombre')->get();
-
-        $ciudad  = DB::table("ciudad")->
-        where('nombre', '=', $_POST['ciudad'])->get();
 
 
         if($_POST['usuario'] === "")
@@ -37,8 +39,7 @@ class ModificaController extends Controller
             with('error', 'Falta introducir el usuario')->
             with('ciudades', $ciudades)->
             with('original', $original[0])->
-            with('origen', $_POST['origen'])->
-            with('ciudad', $ciudad[0]);
+            with('origen', $_POST['origen']);
 
         }
 
@@ -48,8 +49,7 @@ class ModificaController extends Controller
             with('error', 'Usuario no Válido')->
             with('ciudades', $ciudades)->
             with('original', $original[0])->
-            with('origen', $_POST['origen'])->
-            with('ciudad', $ciudad[0]);
+            with('origen', $_POST['origen']);
         }
 
         if($_POST['passw'] != $_POST['passw2'] or $_POST['passw'] === "")
@@ -58,8 +58,7 @@ class ModificaController extends Controller
             with('error', 'Falta Confirmar Contraseña')->
             with('ciudades', $ciudades)->
             with('original', $original[0])->
-            with('origen', $_POST['origen'])->
-            with('ciudad', $ciudad[0]);
+            with('origen', $_POST['origen']);
         }
 
         if($_POST['nombre'] != '' and $_POST['apellido'] != ''
@@ -78,18 +77,19 @@ class ModificaController extends Controller
                 'ciudad' => $_POST['ciu']
             ]);
 
-            $query = DB::table("socio")->where(
-                "email", "=", $_POST['usuario'])->get();
+            $query = DB::table("socio")->
+            join("ciudad","socio.ciudad","=","ciudad.id")->
+            select("socio.*",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos")->
+            where("email", "=", $_POST['usuario'])->get();
 
-            $ciudad =DB::table("ciudad")->
-            where('id', '=', $query[0]->ciudad)->get();
 
             $datos = DB::table("socio")->
             select('email','nombre','apellido')->get();
 
             return redirect('/Ini_Socio')->
             with('socio',$query[0])->
-            with('ciudad',$ciudad[0])->
             with('tipo','SOCIO')->
             with('datos',$datos);
         }
@@ -99,8 +99,7 @@ class ModificaController extends Controller
         with('error', 'Datos Personales no Aportados')->
         with('ciudades', $ciudades)->
         with('original', $original[0])->
-        with('origen', $_POST['origen'])->
-        with('ciudad', $ciudad[0]);
+        with('origen', $_POST['origen']);
     }
 
 
@@ -113,20 +112,25 @@ class ModificaController extends Controller
 
     public function Confirma_Profesional()
     {
-        $query = DB::table("profesional")->where(
-            "email", "=", $_POST['usuario'])->get();
+        $query = DB::table("profesional")->
+        where("email", "=", $_POST['usuario'])->get();
 
         $original = DB::table("profesional")->
+        join("ciudad","profesional.ciudad","=","ciudad.id")->
+        join("sector","profesional.profesion","=","sector.id")->
+        select("profesional.*",
+            "ciudad.id as id_ciudad",
+            "ciudad.nombre as ciudad",
+            "ciudad.codigo_postal as cod_pos",
+            "sector.id as id_sector",
+            "sector.nombre as sector")->
         where("email", "=", $_POST['original'])->get();
 
         $ciudades =DB::table("ciudad")->
         orderBy('nombre')->get();
 
-        $ciudad  = DB::table("ciudad")->
-            where('nombre', '=', $_POST['ciudad'])->get();
-
-        $sector  = DB::table("sector")->
-        where('nombre', '=', $_POST['sector'])->get();
+        $sectores = DB::table("sector")->
+            orderBy('nombre')->get();
 
 
         if($_POST['usuario'] === "")
@@ -134,10 +138,9 @@ class ModificaController extends Controller
             return redirect('/Modificar_Porfesional')->
             with('error', 'Falta introducir el usuario')->
             with('ciudades', $ciudades)->
+            with('sectores', $sectores)->
             with('original', $original[0])->
-            with('origen', $_POST['origen'])->
-            with('ciudad', $ciudad[0])->
-            with('sector', $sector[0]);
+            with('origen', $_POST['origen']);
 
         }
 
@@ -146,10 +149,9 @@ class ModificaController extends Controller
             return redirect('/Modificar_Porfesional')->
             with('error', 'Usuario no Válido')->
             with('ciudades', $ciudades)->
+            with('sectores', $sectores)->
             with('original', $original[0])->
-            with('origen', $_POST['origen'])->
-            with('ciudad', $ciudad[0])->
-            with('sector', $sector[0]);
+            with('origen', $_POST['origen']);
         }
 
         if($_POST['passw'] != $_POST['passw2'] or $_POST['passw'] === "")
@@ -157,10 +159,9 @@ class ModificaController extends Controller
             return redirect('/Modificar_Porfesional')->
             with('error', 'Falta Confirmar Contraseña')->
             with('ciudades', $ciudades)->
+            with('sectores', $sectores)->
             with('original', $original[0])->
-            with('origen', $_POST['origen'])->
-            with('ciudad', $ciudad[0])->
-            with('sector', $sector[0]);
+            with('origen', $_POST['origen']);
         }
 
         if($_POST['nombre'] != '' and $_POST['apellido'] != ''
@@ -180,22 +181,20 @@ class ModificaController extends Controller
                 'profesion' => $_POST['sec']
             ]);
 
-            $query = DB::table("profesional")->where(
-                "email", "=", $_POST['usuario'])->get();
-
-            $ciudad =DB::table("ciudad")->
-            where('id', '=', $query[0]->ciudad)->get();
-
-            $sector =DB::table("sector")->
-            where('id', '=', $query[0]->profesion)->get();
+            $query = DB::table("profesional")->
+            join("ciudad","profesional.ciudad","=","ciudad.id")->
+            join("sector","profesional.profesion","=","sector.id")->
+            select("profesional.*",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos",
+                "sector.nombre as sector")->
+            where("email", "=", $_POST['usuario'])->get();
 
             $datos = DB::table("profesional")->
             select('email','nombre','apellido')->get();
 
             return redirect('/Ini_Profesional')->
             with('profesional',$query[0])->
-            with('ciudad',$ciudad[0])->
-            with('sector', $sector[0])->
             with('tipo','PROFESIONAL')->
             with('datos',$datos);
         }
@@ -204,9 +203,8 @@ class ModificaController extends Controller
         return redirect('/Modificar_Profesional')->
         with('error', 'Datos Personales no Aportados')->
         with('ciudades', $ciudades)->
+        with('sectores', $sectores)->
         with('original', $original[0])->
-        with('origen', $_POST['origen'])->
-        with('ciudad', $ciudad[0])->
-        with('sector', $sector[0]);
+        with('origen', $_POST['origen']);
     }
 }

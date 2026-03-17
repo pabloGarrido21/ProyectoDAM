@@ -1,10 +1,9 @@
 @props([
     'titulo'=>'Sin Título',
     'titulo2'=>'Sin Título',
-    'tipo'=>session('tipo'),
-    'accion' =>'',
     'datos' =>session('datos'),
-    'original'=>''
+    'original' => session('original'),
+    'tipo' => session('tipo')
 
 ])
 
@@ -126,66 +125,45 @@
         @csrf
 
         <div class="container">
-            <h1>
-                MIS DATOS
-                <input type="image" src="https://illustoon.com/photo/3127.png"
-                       alt="Submit" width="48" height="48" onclick="action='/Envia_Modifica';">
-            </h1>
-
-
-            {{ $slot }}
-            <br>
-
-            <div class="fila">
-                <div>
-                    <button class="btn volver"  onclick="action='/';">
-                        Cerrar Sesion
-                    </button>
-                </div>
-                <div class="divi">
-                    <button class="btn derecha"  onclick="action='/';">
-                        Ofertas
-                    </button>
-                </div>
-            </div>
-
-        </div>
-
-        <br>
-
-        <div class="container2">
 
             <h1>
                 {{$titulo2}}
-                <input type="image" src="https://illustoon.com/photo/3127.png"
-                       alt="Submit" width="48" height="48" onclick="action='{{ $accion }}{{ $tipo }}';">
             </h1>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                    </tr>
-                </thead>
+            {{$slot}}
 
-                <tbody>
-                @foreach ($datos as $fila)
-                    <tr onclick="window.location=
-                    '{{ route('items.show', ['id'=> 'A','email' => $fila->email,
-                            'tipo' => $tipo, 'original' => $original]) }}'"
-                        style="cursor:pointer;">
+            <input type="hidden" name="original" value="<?php echo $original->email;?>">
 
-                        <td>{{ $fila->email }}</td>
-                        <td>{{ $fila->nombre }}</td>
-                        <td>{{ $fila->apellido }}</td>
+            <br>
 
-                    </tr>
-                @endforeach
+            <div class="usuario">
+                <label>USUARIO:</label> <text>{{$datos->email}}</text>
+            </div>
 
-                </tbody>
-            </table>
+            <div class="fila">
+                <div> <label> NOMBRE: </label> <text>{{$datos->nombre}}</text> </div>
+                <div> <label> APELLIDOS: </label> <text>{{$datos->apellido}}</text> </div>
+            </div>
+
+            <div class="fila">
+                <div>  <label> TELE: </label> <text>{{$datos->telefono}}</text> </div>
+                <div> <label> DIRECCIÓN: </label> <text>{{$datos->direccion}}</text> </div>
+            </div>
+
+            <div class="fila">
+                <div> <label> CIUDAD: </label> <text>{{$datos->ciudad}}</text> </div>
+                <div> <label> COD POSTAL: </label> <text>{{$datos->cod_pos}}</text> </div>
+            </div>
+
+            @if($tipo == 'PROFESIONAL')
+
+                <div class="fila">
+                    <div> <label> SECTOR: </label> <text>{{$datos->sector}}</text> </div>
+                </div>
+
+            @endif
+
+
 
         </div>
 

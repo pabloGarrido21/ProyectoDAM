@@ -10,7 +10,6 @@
     'apellido' => '',
     'telefono' => '',
     'direccion' => '',
-    'ciudad' => session('ciudad'),
     'ciu' => '',
     'origen' => '',
     'envia' => ''
@@ -114,8 +113,8 @@
         <br></br>
         <text>CIUDAD</text>
         <select name="ciu">
-            <option value="{{ $ciudad->id }}">
-                {{ $ciudad->nombre }}
+            <option value="{{ $original->id_ciudad }}">
+                {{ $original->ciudad }}
             </option>
 
             @foreach ($ciudades as $ciu)
@@ -133,7 +132,6 @@
 
         <input type="hidden" name="origen" value="<?php echo $origen;?>">
         <input  type="hidden" name="original"  value="<?php echo $original->email;?>">
-        <input type="hidden" name="ciudad" value="<?php echo $ciudad->nombre;?>">
 
 
         <!-- Botones -->

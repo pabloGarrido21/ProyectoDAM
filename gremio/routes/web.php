@@ -33,6 +33,11 @@ Route::post('/Modificar_Socio', [ModificaController::class, 'Confirma_Socio']);
 Route::get('/Ini_Socio', [LoginController::class, 'Ini_Socio']);
 Route::post('/Ini_Socio/{tipo}', [ManejoTablaController::class, 'Datos_Ejemplo_Socio']);
 
+Route::get('/Ini_Socio/{id}', [ManejoTablaController::class, 'Click_Ofertas_Socio'])->
+        name('items.show');
+
+Route::get('/Ofer_Socio', [ManejoTablaController::class, 'Oferta_Socio']);
+
 
 
 //Parte de Profesional
@@ -49,8 +54,6 @@ Route::get('/Ini_Profesional', [LoginController::class, 'Ini_Profesional']);
 Route::post('/Ini_Profesional/{tipo}', [ManejoTablaController::class, 'Datos_Ejemplo_Prof']);
 
 
-
-
 //Reenvios
 Route::post('/Envia_Registro', [EnviaFormController::class, 'Envia_Registro']);
 Route::post('/Devuelve_Registro', [EnviaFormController::class, 'Devuelve_Registro']);
@@ -58,3 +61,4 @@ Route::post('/Devuelve_Registro', [EnviaFormController::class, 'Devuelve_Registr
 
 Route::post('/Envia_Modifica', [EnviaFormController::class, 'Envia_Modificar']);
 Route::post('/Devuelve_Modifica', [EnviaFormController::class, 'Devuelve_Modificar']);
+

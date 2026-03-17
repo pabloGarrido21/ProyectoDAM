@@ -1,8 +1,8 @@
 @props([
     'tituloA'=>'Sin Título',
     'tituloB'=>'Sin Título',
-    'usuario' => session('usuario'),
-    'passw' => session('passw'),
+    'usuario' => '',
+    'passw' => '',
     'ciudades' => session('ciudades'),
     'passw2' => '',
     'nombre' => '',

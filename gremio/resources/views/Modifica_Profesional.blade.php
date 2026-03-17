@@ -1,7 +1,7 @@
 @props([
     'sectores' => session('sectores'),
-    'sector' => session('sector'),
-    'sec' => ''
+    'sec' => '',
+    'original'=>session('original')
 ])
 
 
@@ -33,8 +33,8 @@
     <text>SECTOR</text>
     <select name="sec">
 
-            <option value="{{ $sector->id }}">
-                {{ $sector->nombre }}
+            <option value="{{ $original->id_sector }}">
+                {{ $original->sector }}
             </option>
 
         @foreach ($sectores as $sec)
@@ -45,8 +45,6 @@
 
     </select>
     <br></br>
-
-    <input type="hidden" name="sector" value="<?php echo $sector->nombre;?>">
 
 
 </x-layout_Modifica_Datos>
