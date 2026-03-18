@@ -2,8 +2,8 @@
     'titulo'=>'Sin Título',
     'titulo2'=>'Sin Título',
     'datos' =>session('datos'),
-    'original' => session('original'),
-    'tipo' => session('tipo')
+    'usuario' => session('usuario'),
+    'origen' =>''
 
 ])
 
@@ -132,36 +132,38 @@
 
             {{$slot}}
 
-            <input type="hidden" name="original" value="<?php echo $original->email;?>">
+            <input type="hidden" name="usuario" value="<?php echo $usuario->email;?>">
+            <input type="hidden" name="origen" value="<?php echo $origen;?>">
 
             <br>
 
-            <div class="usuario">
-                <label>USUARIO:</label> <text>{{$datos->email}}</text>
-            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Sector</th>
+                    <th>Ciudad</th>
+                    <th>Precio(€)</th>
+                </tr>
+                </thead>
 
-            <div class="fila">
-                <div> <label> NOMBRE: </label> <text>{{$datos->nombre}}</text> </div>
-                <div> <label> APELLIDOS: </label> <text>{{$datos->apellido}}</text> </div>
-            </div>
+                <tbody>
+                @foreach ($datos as $fila)
+                    <tr onclick="window.location=
+                    '{{ route('items.show', ['datos'=> 'A','id' => $fila->id,
+                            'origen' => $origen, 'usuario' => $usuario->email]) }}'"
+                        style="cursor:pointer;">
 
-            <div class="fila">
-                <div>  <label> TELE: </label> <text>{{$datos->telefono}}</text> </div>
-                <div> <label> DIRECCIÓN: </label> <text>{{$datos->direccion}}</text> </div>
-            </div>
+                        <td>{{ $fila->titulo }}</td>
+                        <td>{{ $fila->sector }}</td>
+                        <td>{{ $fila->ciudad }}</td>
+                        <td>{{ $fila->precio }}</td>
 
-            <div class="fila">
-                <div> <label> CIUDAD: </label> <text>{{$datos->ciudad}}</text> </div>
-                <div> <label> COD POSTAL: </label> <text>{{$datos->cod_pos}}</text> </div>
-            </div>
+                    </tr>
+                @endforeach
 
-            @if($tipo == 'PROFESIONAL')
-
-                <div class="fila">
-                    <div> <label> SECTOR: </label> <text>{{$datos->sector}}</text> </div>
-                </div>
-
-            @endif
+                </tbody>
+            </table>
 
 
 

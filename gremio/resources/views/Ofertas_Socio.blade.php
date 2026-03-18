@@ -1,5 +1,8 @@
 @props([
-    'origen' => 'SOCIO'
+'ciudades' => session('ciudades'),
+'sectores' => session('sectores'),
+'tipo' => session('tipo'),
+'id' => session('id')
 
 ])
 
@@ -18,15 +21,60 @@
 </style>
 
 
-<x-layout_Ofertas titulo="Ofertas Socio" titulo2="Usario Seleccionado">
+<x-layout_Ofertas titulo="Ofertas Socio" titulo2="Ofertas Disponibles" origen="SOCIO">
+
+    <input type="hidden" name="tipo" value="<?php echo $tipo;?>">
+    <input type="hidden" name="id" value="<?php echo $id;?>">
+
+    <div>
+        <div>
+            <button class="btn volver"  onclick="action='/Devuelve_Oferta';">
+                Volver
+            </button>
+
+            <input type="image" src="https://illustoon.com/photo/3127.png"
+                   alt="Submit" width="48" height="48" onclick="action='/Oferta_Socio/BASE';">
+
+        </div>
+        <div>
+            <input type="image" src="https://illustoon.com/photo/3127.png"
+                   alt="Submit" width="48" height="48" onclick="action='/Oferta_Socio/ALFA';">
+
+            <input type="image" src="https://illustoon.com/photo/3127.png"
+                   alt="Submit" width="48" height="48" onclick="action='/Oferta_Socio/PRECIO';">
 
 
+            <select name="ciudad">
 
-    <button class="btn volver"  onclick="action='/Ini_Socio';">
-        Volver
-    </button>
+                @foreach ($ciudades as $ciudad)
+                    <option value="{{ $ciudad->id }}">
+                        {{ $ciudad->nombre }}
+                    </option>
+                @endforeach
 
-    <input type="hidden" name="origen" value="<?php echo $origen;?>">
+            </select>
+
+            <input type="image" src="https://illustoon.com/photo/3127.png"
+                   alt="Submit" width="48" height="48" onclick="action='/Oferta_Socio/CIUDAD';">
+
+
+            <select name="sector">
+
+                @foreach ($sectores as $sector)
+                    <option value="{{ $sector->id }}">
+                        {{ $sector->nombre }}
+                    </option>
+                @endforeach
+
+            </select>
+            <input type="image" src="https://illustoon.com/photo/3127.png"
+                   alt="Submit" width="48" height="48" onclick="action='/Oferta_Socio/SECTOR';">
+        </div>
+
+
+    </div>
+
+
 
 
 

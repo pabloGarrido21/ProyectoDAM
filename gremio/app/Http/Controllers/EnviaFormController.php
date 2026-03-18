@@ -141,4 +141,111 @@ class EnviaFormController extends Controller
 
         return redirect('/Login_Socio')->with('error', '¿COMO HAS LLEGADO HASTA AQUI?');
     }
+
+
+
+
+    //OFERTAS
+    public function Envia_Oferta()
+    {
+
+        if($_POST['origen'] == 'SOCIO')
+        {
+            $usuario = DB::table("socio")->
+            where("email", "=", $_POST['original'])->get();
+
+            $datos = DB::table("oferta")->
+            join("profesional","oferta.id_profesional","=","profesional.id")->
+            join("sector","oferta.profesion","=","sector.id")->
+            join("ciudad","oferta.ciudad","=","ciudad.id")->
+            select("oferta.*",
+            "profesional.nombre as profesional",
+            "ciudad.nombre as ciudad",
+            "sector.nombre as sector")->get();
+
+            $ciudades = DB::table("ciudad")->get();
+
+            $sectores = DB::table("sector")->get();
+
+            return redirect('/Oferta_Socio')->
+            with('usuario', $usuario[0])->
+            with('datos', $datos)->
+            with('ciudades', $ciudades)->
+            with('sectores', $sectores)->
+            with('tipo','BASE')->
+            with('id','');
+        }
+
+        if($_POST['origen'] == 'PROFESIONAL')
+        {
+            $usuario = DB::table("profesional")->
+            where("email", "=", $_POST['original'])->get();
+
+
+            $datos = DB::table("oferta")->
+            join("profesional","oferta.id_profesional","=","profesional.id")->
+            join("sector","oferta.profesion","=","sector.id")->
+            join("ciudad","oferta.ciudad","=","ciudad.id")->
+            select("oferta.*",
+                "profesional.nombre as profesional",
+                "ciudad.nombre as ciudad",
+                "sector.nombre as sector")->
+            where("profesional.id", "=", $usuario[0]->id)->get();
+
+            return redirect('/Oferta_Profesional')->
+            with('usuario', $usuario[0])->
+            with('datos', $datos);
+        }
+
+
+
+        return redirect('/Login_Socio')->with('error', '¿COMO HAS LLEGADO HASTA AQUI?');
+    }
+
+
+
+
+    public function Devuelve_Oferta()
+    {
+
+        if('SOCIO' === $_POST['origen'])
+        {
+            $query = DB::table("socio")->
+            join("ciudad","socio.ciudad","=","ciudad.id")->
+            select("socio.*",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos")->
+            where("email", "=", $_POST['usuario'])->get();
+
+            $datos = DB::table("socio")->
+            select('email','nombre','apellido')->get();
+
+            return redirect('/Ini_Socio')->
+            with('socio',$query[0])->
+            with('tipo','SOCIO')->
+            with('datos',$datos);
+        }
+
+        if($_POST['origen'] === 'PROFESIONAL')
+        {
+            $query = DB::table("profesional")->
+            join("ciudad","profesional.ciudad","=","ciudad.id")->
+            join("sector","profesional.profesion","=","sector.id")->
+            select("profesional.*",
+                "ciudad.nombre as ciudad",
+                "ciudad.codigo_postal as cod_pos",
+                "sector.nombre as sector")->
+            where("email", "=", $_POST['usuario'])->get();
+
+            $datos = DB::table("profesional")->
+            select('email','nombre','apellido')->get();
+
+            return redirect('/Ini_Profesional')->
+            with('profesional',$query[0])->
+            with('tipo','PROFESIONAL')->
+            with('datos',$datos);
+        }
+
+        return redirect('/Login_Socio')->with('error', '¿COMO HAS LLEGADO HASTA AQUI?');
+    }
 }

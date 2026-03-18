@@ -124,6 +124,110 @@ class ManejoTablaController extends Controller
 
     }
 
+
+    public function Filtro_Oferta($tipo)
+    {
+        $id = '';
+        $altera = 'BASE';
+        $ciudades = DB::table("ciudad")->get();
+        $sectores = DB::table("sector")->get();
+
+        $usuario = DB::table("socio")->
+            where("email", "=", $_POST['usuario'])->get();
+
+        $datos = DB::table("oferta")->
+        join("profesional","oferta.id_profesional","=","profesional.id")->
+        join("sector","oferta.profesion","=","sector.id")->
+        join("ciudad","oferta.ciudad","=","ciudad.id")->
+        select("oferta.*",
+            "profesional.nombre as profesional",
+            "ciudad.nombre as ciudad",
+            "sector.nombre as sector");
+
+
+        if($tipo == 'CIUDAD')
+        {
+            $datos = $datos->
+            where("oferta.ciudad", "=", $_POST['ciudad'])->get();
+
+            $altera = 'CIUDAD';
+
+            $id = $_POST['ciudad'];
+
+        }
+
+        elseif($tipo == 'SECTOR')
+        {
+            $datos = $datos->
+            where("oferta.profesion", "=", $_POST['sector'])->get();
+
+            $altera = 'SECTOR';
+
+            $id = $_POST['sector'];
+
+        }
+
+        elseif($_POST['tipo'] == 'CIUDAD')
+        {
+            $datos = $datos->
+            where("oferta.ciudad", "=", $_POST['id']);
+
+            $altera = 'CIUDAD';
+
+            $id = $_POST['id'];
+        }
+
+        elseif($_POST['tipo'] == 'SECTOR')
+        {
+            $datos = $datos->
+            where("oferta.profesion", "=", $_POST['id']);
+
+            $altera = 'SECTOR';
+
+            $id = $_POST['id'];
+        }
+
+
+
+        if($tipo == 'BASE')
+        {
+            $datos = DB::table("oferta")->
+            join("profesional","oferta.id_profesional","=","profesional.id")->
+            join("sector","oferta.profesion","=","sector.id")->
+            join("ciudad","oferta.ciudad","=","ciudad.id")->
+            select("oferta.*",
+                "profesional.nombre as profesional",
+                "ciudad.nombre as ciudad",
+                "sector.nombre as sector")->get();
+        }
+
+        if($tipo == 'ALFA')
+        {
+            $datos = $datos->
+                orderBy("titulo")->get();
+        }
+
+        if($tipo == 'PRECIO')
+        {
+            $datos = $datos->
+            orderBy("precio")->get();
+        }
+
+
+
+
+
+
+        return redirect('/Oferta_Socio')->
+        with('usuario', $usuario[0])->
+        with('datos', $datos)->
+        with('ciudades', $ciudades)->
+        with('sectores', $sectores)->
+        with('tipo', $altera)->
+        with('id', $id);
+
+    }
+
     public function Oferta_Socio()
     {
         return view('Ofertas_Socio');

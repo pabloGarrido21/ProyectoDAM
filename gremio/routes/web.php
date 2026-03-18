@@ -7,6 +7,7 @@ use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\EnviaFormController;
 use App\Http\Controllers\ModificaController;
 use App\Http\Controllers\ManejoTablaController;
+use App\Http\Controllers\OfertaController;
 
 
 
@@ -38,7 +39,8 @@ Route::get('/Ini_Socio/{id}', [ManejoTablaController::class, 'Click_Ofertas_Soci
 
 Route::get('/Ofer_Socio', [ManejoTablaController::class, 'Oferta_Socio']);
 
-
+Route::get('/Oferta_Socio', [OfertaController::class, 'Oferta_Socio']);
+Route::post('/Oferta_Socio/{tipo}', [ManejoTablaController::class, 'Filtro_Oferta']);
 
 //Parte de Profesional
 Route::get('/Login_Profesional', [LoginController::class, 'Login_Profesional']);
@@ -53,6 +55,8 @@ Route::post('/Modificar_Profesional', [ModificaController::class, 'Confirma_Prof
 Route::get('/Ini_Profesional', [LoginController::class, 'Ini_Profesional']);
 Route::post('/Ini_Profesional/{tipo}', [ManejoTablaController::class, 'Datos_Ejemplo_Prof']);
 
+Route::get('/Oferta_Profesional', [OfertaController::class, 'Oferta_Profesional']);
+
 
 //Reenvios
 Route::post('/Envia_Registro', [EnviaFormController::class, 'Envia_Registro']);
@@ -62,3 +66,6 @@ Route::post('/Devuelve_Registro', [EnviaFormController::class, 'Devuelve_Registr
 Route::post('/Envia_Modifica', [EnviaFormController::class, 'Envia_Modificar']);
 Route::post('/Devuelve_Modifica', [EnviaFormController::class, 'Devuelve_Modificar']);
 
+
+Route::post('/Envia_Oferta', [EnviaFormController::class, 'Envia_Oferta']);
+Route::post('/Devuelve_Oferta', [EnviaFormController::class, 'Devuelve_Oferta']);

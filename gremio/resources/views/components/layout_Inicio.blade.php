@@ -143,7 +143,7 @@
                     </button>
                 </div>
                 <div class="divi">
-                    <button class="btn derecha"  onclick="action='/';">
+                    <button class="btn derecha"  onclick="action='/Envia_Oferta';">
                         Ofertas
                     </button>
                 </div>
