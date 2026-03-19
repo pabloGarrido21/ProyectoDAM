@@ -1,8 +1,16 @@
 @props([
 
-    'origen' => 'PROFESIONAL'
+    'origen' => 'PROFESIONAL',
+    'titulo' => '',
+    'precio' => ''
 
 ])
+
+@if(session('error'))
+    <script>
+        alert("{{ session('error') }}");
+    </script>
+@endif
 
 <style>
     body {
@@ -14,6 +22,27 @@
         align-items: center;
         height: 100vh;
         color: white;
+
+        .fila{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            margin-bottom: 15px;
+        }
+
+
+        .boton {
+            display:inline-block;
+            gap: 10px;
+            width: 75%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+
+        }
     }
 
 
@@ -21,6 +50,25 @@
 
 
 <x-layout_Ofertas titulo="Ofertas Profesional" titulo2="Mis Ofertas" origen="PROFESIONAL">
+
+    <div class="fila">
+        <div>
+            <button class="boton derecha"  onclick="action='/Oferta_Profesional';">
+                Crear Oferta
+            </button>
+        </div>
+
+        <div>
+            <text>Titulo:</text>
+            <input  type="text" name="titulo"  value="<?php echo $titulo;?>">
+        </div>
+        <div>
+            <text>Precio:</text>
+            <input  type="number" name="precio"  value="<?php echo $precio;?>">
+            <text>€</text>
+        </div>
+
+    </div>
 
     <button class="btn volver"  onclick="action='/Devuelve_Oferta';">
         Volver

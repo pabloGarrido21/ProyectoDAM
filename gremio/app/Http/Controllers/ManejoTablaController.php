@@ -132,9 +132,6 @@ class ManejoTablaController extends Controller
         $ciudades = DB::table("ciudad")->get();
         $sectores = DB::table("sector")->get();
 
-        $usuario = DB::table("socio")->
-            where("email", "=", $_POST['usuario'])->get();
-
         $datos = DB::table("oferta")->
         join("profesional","oferta.id_profesional","=","profesional.id")->
         join("sector","oferta.profesion","=","sector.id")->
@@ -213,13 +210,8 @@ class ManejoTablaController extends Controller
             orderBy("precio")->get();
         }
 
-
-
-
-
-
         return redirect('/Oferta_Socio')->
-        with('usuario', $usuario[0])->
+        with('usuario', $_POST['usuario'])->
         with('datos', $datos)->
         with('ciudades', $ciudades)->
         with('sectores', $sectores)->
@@ -228,10 +220,45 @@ class ManejoTablaController extends Controller
 
     }
 
-    public function Oferta_Socio()
+
+
+
+    public function Click_Ofertas(Request $request)
     {
-        return view('Ofertas_Socio');
+        $origen = $request->query('origen');
+        $usuario = $request->query('usuario');
+        $id = $request->query('id');
+
+        $datos = DB::table("oferta")->
+        join("profesional","oferta.id_profesional","=","profesional.id")->
+        join("sector","oferta.profesion","=","sector.id")->
+        join("ciudad","oferta.ciudad","=","ciudad.id")->
+        select("oferta.*",
+            "profesional.nombre as prof_nombre",
+            "profesional.apellido as prof_apellido",
+            "profesional.email as prof_email",
+            "profesional.telefono as prof_telefono",
+            "ciudad.nombre as ciudad",
+            "sector.nombre as sector")->
+        where("oferta.id", "=", $id)->get();
+
+        if($origen == 'SOCIO')
+        {
+            return redirect('/Vista_Oferta_Socio')->
+            with('usuario',$usuario)->
+            with('datos',$datos[0])->
+            with('origen',$origen);
+        }
+
+        return redirect('/Vista_Oferta_Profesional')->
+        with('usuario',$usuario)->
+        with('datos',$datos[0])->
+        with('origen',$origen);
+
+
     }
+
+
 
 
 }

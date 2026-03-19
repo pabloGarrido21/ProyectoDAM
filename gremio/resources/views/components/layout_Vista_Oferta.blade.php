@@ -1,16 +1,11 @@
 @props([
     'titulo'=>'Sin Título',
     'titulo2'=>'Sin Título',
-    'datos' =>session('datos'),
-    'usuario' => session('usuario'),
-    'origen' =>''
+    'origen'=>session('origen'),
+    'usuario' =>session('usuario'),
+    'datos' =>session('datos')
 
 ])
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -124,48 +119,45 @@
     <form method="POST" >
         @csrf
 
-        <div class="container">
 
+        <input type="hidden" name="usuario" value="<?php echo $usuario;?>">
+        <input type="hidden" name="origen" value="<?php echo $origen;?>">
+        <input type="hidden" name="original" value="<?php echo $usuario;?>">
+
+        <div class="container">
             <h1>
-                {{$titulo2}}
+                OFERTA SELECCIONADA
             </h1>
 
-            {{$slot}}
+            <div class="usuario">
+                <label>TITULO:</label> <text>{{$datos->titulo}}</text>
+            </div>
 
-            <input type="hidden" name="usuario" value="<?php echo $usuario;?>">
-            <input type="hidden" name="origen" value="<?php echo $origen;?>">
+            <div class="fila">
+                <div> <label> SECTOR: </label> <text>{{$datos->sector}}</text> </div>
+                <div> <label> PRECIO: </label> <text>{{$datos->precio}}€</text> </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="usuario">
+                <label>PROFESIONAL:</label> <text>{{$datos->prof_email}}</text>
+            </div>
+
+            <div class="fila">
+                <div>  <label> NOMBRE: </label> <text>{{$datos->prof_nombre}}</text> </div>
+                <div> <label> APELLIDO: </label> <text>{{$datos->prof_apellido}}</text> </div>
+            </div>
+
+            <div class="fila">
+                <div> <label> TELE: </label> <text>{{$datos->prof_telefono}}</text> </div>
+                <div> <label> CIUDAD: </label> <text>{{$datos->ciudad}}</text> </div>
+            </div>
 
             <br>
 
-            <table>
-                <thead>
-                <tr>
-                    <th>Titulo</th>
-                    <th>Sector</th>
-                    <th>Ciudad</th>
-                    <th>Precio(€)</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                @foreach ($datos as $fila)
-                    <tr onclick="window.location=
-                    '{{ route('oferta.show', ['datos'=> 'A','id' => $fila->id,
-                            'origen' => $origen, 'usuario' => $usuario]) }}'"
-                        style="cursor:pointer;">
-
-                        <td>{{ $fila->titulo }}</td>
-                        <td>{{ $fila->sector }}</td>
-                        <td>{{ $fila->ciudad }}</td>
-                        <td>{{ $fila->precio }}</td>
-
-                    </tr>
-                @endforeach
-
-                </tbody>
-            </table>
-
-
+            {{$slot}}
 
         </div>
 

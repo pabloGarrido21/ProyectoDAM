@@ -151,9 +151,6 @@ class EnviaFormController extends Controller
 
         if($_POST['origen'] == 'SOCIO')
         {
-            $usuario = DB::table("socio")->
-            where("email", "=", $_POST['original'])->get();
-
             $datos = DB::table("oferta")->
             join("profesional","oferta.id_profesional","=","profesional.id")->
             join("sector","oferta.profesion","=","sector.id")->
@@ -168,7 +165,7 @@ class EnviaFormController extends Controller
             $sectores = DB::table("sector")->get();
 
             return redirect('/Oferta_Socio')->
-            with('usuario', $usuario[0])->
+            with('usuario', $_POST['original'])->
             with('datos', $datos)->
             with('ciudades', $ciudades)->
             with('sectores', $sectores)->
@@ -193,7 +190,7 @@ class EnviaFormController extends Controller
             where("profesional.id", "=", $usuario[0]->id)->get();
 
             return redirect('/Oferta_Profesional')->
-            with('usuario', $usuario[0])->
+            with('usuario', $usuario[0]->email)->
             with('datos', $datos);
         }
 
