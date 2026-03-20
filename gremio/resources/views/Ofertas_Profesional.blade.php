@@ -6,11 +6,6 @@
 
 ])
 
-@if(session('error'))
-    <script>
-        alert("{{ session('error') }}");
-    </script>
-@endif
 
 <style>
     body {

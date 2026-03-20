@@ -17,7 +17,7 @@
 </style>
 
 
-<x-layout_Vista_Oferta titulo="Inicio Socio" titulo2="CONTRATOS ACTIVOS">
+<x-layout_Vista_Oferta titulo="Oferta Socio">
 
     <div class="fila">
         <div>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="divi">
-            <button class="btn derecha"  onclick="action='/Envia_Oferta';">
+            <button class="btn derecha"  onclick="action='/Envia_Contrato';">
                 Aceptar Oferta
             </button>
         </div>

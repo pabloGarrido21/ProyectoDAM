@@ -247,13 +247,15 @@ class ManejoTablaController extends Controller
             return redirect('/Vista_Oferta_Socio')->
             with('usuario',$usuario)->
             with('datos',$datos[0])->
-            with('origen',$origen);
+            with('origen',$origen)->
+            with('oferta',$id);
         }
 
         return redirect('/Vista_Oferta_Profesional')->
         with('usuario',$usuario)->
         with('datos',$datos[0])->
-        with('origen',$origen);
+        with('origen',$origen)->
+        with('oferta',$id);
 
 
     }

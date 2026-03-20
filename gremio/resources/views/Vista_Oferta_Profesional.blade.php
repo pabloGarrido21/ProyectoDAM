@@ -1,5 +1,4 @@
 @props([
-    'origen' => 'PROFESIONAL'
 
 ])
 
@@ -19,11 +18,22 @@
 </style>
 
 
-<x-layout_Vista_Oferta titulo="Inicio Profesional" titulo2="CONTRATOS ACTIVOS">
+<x-layout_Vista_Oferta titulo="Oferta Profesional">
 
 
+    <div class="fila">
+        <div>
+            <button class="btn volver"  onclick="action='/Envia_Oferta';">
+                Volver
+            </button>
+        </div>
 
-    <input type="hidden" name="origen" value="<?php echo $origen;?>">
+        <div class="divi">
+            <button class="btn derecha"  onclick="action='/Envia_M_Oferta';">
+                Modificar Oferta
+            </button>
+        </div>
+    </div>
 
 
 </x-layout_Vista_Oferta>

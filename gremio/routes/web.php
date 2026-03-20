@@ -8,6 +8,7 @@ use App\Http\Controllers\EnviaFormController;
 use App\Http\Controllers\ModificaController;
 use App\Http\Controllers\ManejoTablaController;
 use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\ContratoController;
 
 
 
@@ -70,6 +71,14 @@ Route::post('/Devuelve_Modifica', [EnviaFormController::class, 'Devuelve_Modific
 Route::post('/Envia_Oferta', [EnviaFormController::class, 'Envia_Oferta']);
 Route::post('/Devuelve_Oferta', [EnviaFormController::class, 'Devuelve_Oferta']);
 
+
+Route::post('/Envia_M_Oferta', [EnviaFormController::class, 'Envia_M_Oferta']);
+Route::get('/Modifica_Oferta', [EnviaFormController::class, 'Modifica_Oferta']);
+Route::post('/Modifica_Oferta', [OfertaController::class, 'Modifica_Oferta']);
+
+Route::post('/Envia_Contrato', [EnviaFormController::class, 'Envia_Contrato']);
+Route::get('/Crea_Contrato', [EnviaFormController::class, 'Crea_Contrato']);
+Route::post('/Crea_Contrato', [ContratoController::class, 'Crea_Contrato']);
 
 Route::get('/Vista_Oferta_Socio', [OfertaController::class, 'Vista_Oferta_Socio']);
 Route::get('/Vista_Oferta_Profesional', [OfertaController::class, 'Vista_Oferta_Profesional']);

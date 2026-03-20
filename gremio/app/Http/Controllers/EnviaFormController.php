@@ -245,4 +245,60 @@ class EnviaFormController extends Controller
 
         return redirect('/Login_Socio')->with('error', '¿COMO HAS LLEGADO HASTA AQUI?');
     }
+
+    public function Envia_M_Oferta()
+    {
+        $datos = DB::table("oferta")->
+        join("profesional","oferta.id_profesional","=","profesional.id")->
+        join("sector","oferta.profesion","=","sector.id")->
+        join("ciudad","oferta.ciudad","=","ciudad.id")->
+        select("oferta.*",
+            "profesional.nombre as prof_nombre",
+            "profesional.apellido as prof_apellido",
+            "profesional.email as prof_email",
+            "profesional.telefono as prof_telefono",
+            "ciudad.nombre as ciudad",
+            "sector.nombre as sector")->
+        where("oferta.id", "=", $_POST['oferta'])->get();
+
+        return redirect('/Modifica_Oferta')->
+        with('usuario', $_POST['usuario'])->
+        with('datos', $datos[0]);
+
+    }
+
+    public function Modifica_Oferta()
+    {
+        return view('Modifica_Oferta');
+    }
+
+
+    public function Envia_Contrato()
+    {
+        $datos = DB::table("oferta")->
+        join("profesional","oferta.id_profesional","=","profesional.id")->
+        join("sector","oferta.profesion","=","sector.id")->
+        join("ciudad","oferta.ciudad","=","ciudad.id")->
+        select("oferta.*",
+            "profesional.nombre as prof_nombre",
+            "profesional.apellido as prof_apellido",
+            "profesional.email as prof_email",
+            "profesional.telefono as prof_telefono",
+            "ciudad.nombre as ciudad",
+            "sector.nombre as sector")->
+        where("oferta.id", "=", $_POST['oferta'])->get();
+
+        return redirect('/Crea_Contrato')->
+        with('usuario', $_POST['usuario'])->
+        with('oferta', $datos[0]);
+
+    }
+
+    public function Crea_Contrato()
+    {
+        return view('Crea_Contrato');
+    }
+
+
+
 }

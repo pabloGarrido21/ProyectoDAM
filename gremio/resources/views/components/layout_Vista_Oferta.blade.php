@@ -3,7 +3,8 @@
     'titulo2'=>'Sin Título',
     'origen'=>session('origen'),
     'usuario' =>session('usuario'),
-    'datos' =>session('datos')
+    'datos' =>session('datos'),
+    "oferta"
 
 ])
 
@@ -123,6 +124,7 @@
         <input type="hidden" name="usuario" value="<?php echo $usuario;?>">
         <input type="hidden" name="origen" value="<?php echo $origen;?>">
         <input type="hidden" name="original" value="<?php echo $usuario;?>">
+        <input type="hidden" name="oferta" value="<?php echo $datos->id;?>">
 
         <div class="container">
             <h1>

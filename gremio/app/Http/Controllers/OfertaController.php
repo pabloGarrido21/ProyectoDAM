@@ -33,6 +33,7 @@ class OfertaController extends Controller
         return view('Vista_Oferta_Profesional');
     }
 
+
     public function Crear_Oferta()
     {
         $usuario = DB::table("profesional")->where(
@@ -101,5 +102,80 @@ class OfertaController extends Controller
         with('datos', $datos);
     }
 
+
+
+
+    public function Modifica_Oferta()
+    {
+        $usuario = DB::table("profesional")->where(
+            "email", "=", $_POST['usuario'])->get();
+
+        $datos = DB::table("oferta")->
+        join("profesional","oferta.id_profesional","=","profesional.id")->
+        join("sector","oferta.profesion","=","sector.id")->
+        join("ciudad","oferta.ciudad","=","ciudad.id")->
+        select("oferta.*",
+            "profesional.nombre as prof_nombre",
+            "profesional.apellido as prof_apellido",
+            "profesional.email as prof_email",
+            "profesional.telefono as prof_telefono",
+            "ciudad.nombre as ciudad",
+            "sector.nombre as sector")->
+        where("oferta.id", "=", $_POST['oferta'])->get();
+
+        if($_POST['titulo'] === "")
+        {
+            return redirect('/Modifica_Oferta')->
+            with('error', 'Falta introducir el titulo')->
+            with('usuario', $_POST['usuario'])->
+            with('datos', $datos[0]);
+
+        }
+
+        if ($_POST['precio'] === "" or $_POST['precio'] <= 0) {
+            return redirect('/Modifica_Oferta')->
+            with('error', 'Falta introducir un Precio Valido')->
+            with('usuario', $_POST['usuario'])->
+            with('datos', $datos[0]);
+        }
+
+        $query = DB::table("oferta")->
+        where("id_profesional", "=", $usuario[0]->id)->
+        where("titulo", "=",$_POST['titulo'] )->get();
+
+        if(count($query) > 0 and $_POST['titulo_orgin'] !== $_POST['titulo'])
+        {
+            return redirect('/Modifica_Oferta')->
+            with('error', 'Ya Tienes una Oferta Con este Titulo')->
+            with('usuario', $_POST['usuario'])->
+            with('datos', $datos[0]);
+        }
+
+        DB::table("oferta")->
+        where("id" , "=", $_POST['oferta'])->
+        update([
+            'titulo' => $_POST['titulo'],
+            'profesion' => $usuario[0]->profesion,
+            'id_profesional' => $usuario[0]->id,
+            'ciudad' => $usuario[0]->ciudad,
+            'precio' => $_POST['precio']
+        ]);
+
+
+        $datos = DB::table("oferta")->
+        join("profesional","oferta.id_profesional","=","profesional.id")->
+        join("sector","oferta.profesion","=","sector.id")->
+        join("ciudad","oferta.ciudad","=","ciudad.id")->
+        select("oferta.*",
+            "profesional.nombre as profesional",
+            "ciudad.nombre as ciudad",
+            "sector.nombre as sector")->
+        where("oferta.id_profesional", "=", $usuario[0]->id)->get();
+
+        return redirect('/Oferta_Profesional')->
+        with('error', 'Oferta con titulo '.$_POST['titulo'].' Modificada' )->
+        with('usuario', $_POST['usuario'])->
+        with('datos', $datos);
+    }
 
 }

@@ -90,9 +90,6 @@ return new class extends Migration
             $table->dateTime('fecha_fin');
             $table->string('estado')->default('pendiente');
 
-
-
-
         });
 
 
