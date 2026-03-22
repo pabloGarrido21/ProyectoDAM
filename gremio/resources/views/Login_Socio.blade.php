@@ -10,6 +10,7 @@
     </script>
 @endif
 
+
 <style>
     body {
         margin: 0;
@@ -22,45 +23,48 @@
         text-align: center;
         color: white;
     }
+
+
 </style>
 
-<x-layout_login titulo="LOGIN Socio">
+<x-layout_login titulo="Login Socio">
+
+        <form method="POST" >
+            @csrf
+
+            <div class="container">
+                <h1>LOGIN Socios</h1>
+
+                <label>USUARIO</label>
+                <input  type="text" name="usuario"  value="<?php echo $usuario;?>">
+                <br></br>
+                <label>CONTRASEÑA</label>
+                <input  type="password" name="passw"  value="<?php echo $passw;?>">
+                <br></br>
+                <input type="hidden" name="origen" value="<?php echo $origen;?>">
+
+                <!-- Botones -->
+
+                <!-- onclick="location.href='/Login_Profesional';" -->
+                <button class="btn btn-primary" onclick="action='/Login_Socio';">
+                    Iniciar Sesion
+                </button>
+
+                <!-- onclick="location.href='/Login_Socio';"-->
+                <button class="btn btn-success" onclick="action='/Envia_Registro';">
+                    Registrarse
+                </button>
 
 
-    <form method="POST" >
-        @csrf
-
-        <div class="container">
-            <h1>LOGIN Socios</h1>
-
-            <text>USUARIO</text>
-            <input  type="text" name="usuario"  value="<?php echo $usuario;?>">
-            <br></br>CONTRASEÑA
-            <input  type="password" name="passw"  value="<?php echo $passw;?>">
-            <br></br>
-            <input type="hidden" name="origen" value="<?php echo $origen;?>">
-
-            <!-- Botones -->
-
-            <!-- onclick="location.href='/Login_Profesional';" -->
-            <button class="btn profesionales" onclick="action='/Login_Socio';">
-                Iniciar Sesion
-            </button>
-
-            <!-- onclick="location.href='/Login_Socio';"-->
-            <button class="btn socios" onclick="action='/Envia_Registro';">
-                Registrarse
-            </button>
-
-
-            <!-- onclick="location.href='/Login_Socio';" -->
-            <button class="volver"  onclick="action='/';">
-                Volver
-            </button>
-        </div>
+                <!-- onclick="location.href='/Login_Socio';" -->
+                <button class="btn btn-secondary"  onclick="action='/';">
+                    Volver
+                </button>
+            </div>
 
 
 
-    </form>
+        </form>
 
 </x-layout_login>
+

@@ -21,7 +21,7 @@
 
     <div class="fila">
         <div>
-            <button class="btn volver"  onclick="action='/Devuelve_Modifica';">
+            <button class="boton volver"  onclick="action='/Devuelve_Modifica';">
                 Volver
             </button>
         </div>

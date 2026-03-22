@@ -44,19 +44,14 @@
             width: 1200px;
         }
 
-        .container2 {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 15px;
-            width: 1200px;
-            text-align: center;
-        }
-
-
-        img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        input {
+            width: 70%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 14px;
         }
 
         h1 {
@@ -84,22 +79,6 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             margin-bottom: 15px;
-        }
-
-
-        table {
-            border-collapse: collapse;
-            display:inline-block;
-
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-
-        th {
-            background-color: lightgray;
         }
 
         .btn {
@@ -167,7 +146,8 @@
                 <input  type="text" name="precio"  value="<?php echo $datos->precio;?>"> €
                 <br>
                 <label> DURACION:</label>
-                <input  type="text" name="duracion"  value="<?php echo $datos->duracion;?>"> Días
+                <input  type="text" name="duracion"  value="<?php echo $datos->duracion;?>">
+                <label>Días</label>
             </div>
         </div>
 

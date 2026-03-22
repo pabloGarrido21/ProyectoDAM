@@ -23,100 +23,74 @@
             width: 1200px;
         }
 
-        .container2 {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 15px;
-            width: 1200px;
+        h1 {
             text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
         }
 
+        label {
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-        img {
-            width: 100%;
-            border-radius: 10px;
+         text,textarea {
+            font-size: 20px;
+            display: block;
+            margin-top: 5px;
+        }
+
+         textarea{
+             color: #555;
+         }
+
+        textarea.input-grande {
+            width: 75%;
+            height: 200px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+            background: #f8f8f8;
+        }
+
+        .fila {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
             margin-bottom: 20px;
         }
 
-        h1 {
-            margin-bottom: 30px;
-            font-size: 30px;
-            text-align: center;
-        }
-
-        text{
-            font-size: 25px;
-
-        }
-
-
-        label{
-            font-weight: bold;
-            font-size: 25px;
-        }
-
-        .usuario{
-            margin-bottom: 30px;
-        }
-
-        .fila{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            margin-bottom: 15px;
-        }
-
-        table {
-            border-collapse: collapse;
-            display:inline-block;
-
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-
-        th {
-            background-color: lightgray;
-        }
-
-        .btn {
-            display:inline-block;
+        .usuario {
+            margin-bottom: 25px;
             gap: 10px;
-            width: 25%;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 16px;
-            border: none;
+        }
+
+        .boton {
+
+            padding: 12px 20px;
             border-radius: 8px;
+            border: none;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
             transition: 0.3s;
-
         }
 
-        .divi_centro{
-            text-align: center;
+        .volver { background-color: #6c757d; color: white; }
+        .izquierda { background-color: #007BFF; color: white; }
+        .derecha { background-color: #28A745; color: white; }
+
+        .boton:hover { opacity: 0.85; }
+
+        .fila-botones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
         }
 
-        .divi_derecha{
-            text-align: right;
-        }
-
-        .izquierda {
-            background-color: #007BFF;
-            color: white;
-
-        }
-
-        .derecha {
-            background-color: #28A745;
-            color: white;
-
-        }
-
-        .btn:hover {
-            opacity: 0.8;
-        }
     </style>
 </head>
 <body>
@@ -174,12 +148,12 @@
                 <div>
                     <label> DURACION: </label>
                     <text>{{$datos->duracion}}</text>
-                    <br>
+                    <br><br>
                     <label> FECHA INICIO: </label>
                     <text>{{$datos->fecha_inicio}}</text>
 
                     @if($tipo == "TERMINADO")
-                        <br>
+                        <br><br>
                         <label> FECHA FIN: </label>
                         <text>{{$datos->fecha_fin}}</text>
 

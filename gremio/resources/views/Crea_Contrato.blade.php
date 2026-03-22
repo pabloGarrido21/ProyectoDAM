@@ -22,129 +22,117 @@
     <meta charset="UTF-8">
     <title>{{ $titulo }}</title>
     <style>
-
         body {
-            margin: 50px;
-            font-family: Arial, sans-serif;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(to right, #1f4037, #99f2c8);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            color: white;
+            min-height: 100vh;
+            color: #fff;
         }
 
         .container {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 15px;
-            width: 1200px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px 50px;
+            border-radius: 20px;
+            width: 1000px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
         .container2 {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 15px;
-            width: 1200px;
             text-align: center;
+            margin-bottom: 30px;
         }
 
-
-        img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        img.logo {
+            width: 200px;
+            display: block;
+            margin: 0 auto 30px auto;
         }
 
         h1 {
-            margin-bottom: 30px;
-            font-size: 30px;
             text-align: center;
-        }
-
-        text{
-            font-size: 25px;
-
-        }
-
-
-        label{
-            font-weight: bold;
-            font-size: 25px;
-        }
-
-        .usuario{
+            font-size: 32px;
             margin-bottom: 30px;
+            letter-spacing: 1px;
         }
 
-        .fila{
+        label {
+            font-weight: bold;
+            font-size: 20px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        text {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .usuario {
+            margin-bottom: 25px;
+        }
+
+        .fila {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            margin-bottom: 15px;
+            gap: 30px;
+            margin-bottom: 20px;
         }
 
-        table {
-            border-collapse: collapse;
-            display:inline-block;
-
+        .input-grande {
+            width: 100%;
+            height: 150px;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
         }
 
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-
-        th {
-            background-color: lightgray;
+        input[type="date"] {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
         }
 
         .btn {
-            display:inline-block;
-            gap: 10px;
-            width: 25%;
+            width: 100%;
             padding: 15px;
-            margin: 10px 0;
             font-size: 16px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: 0.3s;
-
+            transition: all 0.3s ease;
         }
 
-        .divi{
-            text-align: right;
-        }
-
-        .izquierda {
-            background-color: #007BFF;
+        .volver {
+            background-color: #6c757d;
             color: white;
-            text-align: left;
-
         }
 
         .derecha {
-            background-color: #28A745;
+            background-color: #28a745;
             color: white;
-
-        }
-
-        .input-grande {
-            width: 300px;
-            height: 40px;
-            font-size: 16px;
-        }
-
-        .input-grande {
-            width: 400px;
-            height: 200px ;
-            font-size: 16px;
         }
 
         .btn:hover {
-            opacity: 0.8;
+            opacity: 0.85;
+            transform: translateY(-2px);
         }
+
+        .divi {
+            text-align: right;
+        }
+
     </style>
+
 </head>
 <body>
 
@@ -188,9 +176,8 @@
                 <textarea name="descripcion" class="input-grande"></textarea>
             </div>
             <div>
-                <label> FECHA iNICIO: </label>
-                <input  type="date" name="fecha"
-                        value="{{ \Carbon\Carbon::today()}}" required>
+                <label> FECHA INICIO: </label><br>
+                <input  type="date" name="fecha">
             </div>
         </div>
 

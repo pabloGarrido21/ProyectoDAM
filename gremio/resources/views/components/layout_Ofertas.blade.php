@@ -22,6 +22,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ $titulo }}</title>
+
+
     <style>
 
         .container {
@@ -31,98 +33,121 @@
             width: 1200px;
         }
 
-        .container2 {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 15px;
-            width: 1200px;
+        h1 {
             text-align: center;
+            margin-bottom: 30px;
         }
 
-
-        img {
-            width: 100%;
-            border-radius: 10px;
+        .fila {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
             margin-bottom: 20px;
         }
 
-        h1 {
-            margin-bottom: 30px;
-            font-size: 30px;
-            text-align: center;
+        label, text {
+            font-weight: 600;
+            font-size: 24px;
         }
 
-        text{
-            font-size: 25px;
-
+        input[type="text"] {
+            width: 70%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 14px;
         }
 
-
-        label{
-            font-weight: bold;
-            font-size: 25px;
+        input[type="number"] {
+            width: 70%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 14px;
         }
 
-        .usuario{
-            margin-bottom: 30px;
+        input:focus, select:focus {
+            border-color: #007BFF;
+            outline: none;
         }
 
-        .fila{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            margin-bottom: 15px;
+         select {
+            width: 25%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+            transition: 0.2s;
         }
+
 
         table {
+            width: 100%;
             border-collapse: collapse;
-            display:inline-block;
-
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 10px;
         }
 
         th {
-            background-color: lightgray;
+            background: #1f3740;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        tr {
+            transition: 0.2s;
+        }
+
+        tr:hover {
+            background: #f5faff;
+            cursor: pointer;
+            transform: scale(1.01);
         }
 
         .btn {
-            display:inline-block;
-            gap: 10px;
-            width: 25%;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 16px;
+            width: 400px;
+            padding: 14px;
+            margin-top: 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
+            font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
-
-        }
-
-        .divi{
-            text-align: right;
-        }
-
-        .izquierda {
-            background-color: #007BFF;
-            color: white;
-            text-align: left;
-
+            transition: all 0.3s ease;
         }
 
         .derecha {
-            background-color: #28A745;
+            background: #28a745;
             color: white;
+        }
 
+        .izquierda {
+            background: #007BFF;
+            color: white;
+        }
+
+        .volver {
+            background: #6c757d;
+            color: white;
         }
 
         .btn:hover {
-            opacity: 0.8;
+            transform: translateY(-2px);
+            opacity: 0.9;
         }
+
     </style>
+
 </head>
 <body>
 

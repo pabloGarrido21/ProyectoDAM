@@ -57,15 +57,16 @@
         <div>
             <text>Titulo:</text>
             <input  type="text" name="titulo"  value="<?php echo $titulo;?>">
+            <br>
+            <text>Duracion:</text>
+            <input  type="number" name="duracion"  value="<?php echo $duracion;?>">
+            <text>días</text>
         </div>
         <div>
             <text>Precio:</text>
             <input  type="number" name="precio"  value="<?php echo $precio;?>">
-            <text>€</text><br>
+            <text>€</text>
 
-            <text>Duracion:</text>
-            <input  type="number" name="duracion"  value="<?php echo $duracion;?>">
-            <text>días</text>
         </div>
 
     </div>

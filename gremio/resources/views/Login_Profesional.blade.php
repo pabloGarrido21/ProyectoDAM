@@ -4,6 +4,7 @@
     'origen' => 'PROFESIONAL'
 ])
 
+
 @if(session('error'))
     <script>
         alert("{{ session('error') }}");
@@ -35,9 +36,10 @@
         <div class="container">
             <h1>LOGIN Profesionales</h1>
 
-            <text>USUARIO</text>
+            <label>USUARIO</label>
             <input  type="text" name="usuario"  value="<?php echo $usuario;?>">
-            <br></br>CONTRASEÑA
+            <br></br>
+            <label>CONTRASEÑA</label>
             <input  type="password" name="passw"  value="<?php echo $passw;?>">
             <br></br>
             <input type="hidden" name="origen" value="<?php echo $origen;?>">
@@ -45,18 +47,18 @@
             <!-- Botones -->
 
             <!-- onclick="location.href='/Login_Profesional';" -->
-            <button class="btn profesionales" onclick="action='/Login_Profesional';">
+            <button class="btn btn-primary" onclick="action='/Login_Profesional';">
                 Iniciar Sesion
             </button>
 
             <!-- onclick="location.href='/Login_Socio';"-->
-            <button class="btn socios" onclick="action='/Envia_Registro';">
+            <button class="btn btn-success" onclick="action='/Envia_Registro';">
                 Registrarse
             </button>
 
 
             <!-- onclick="location.href='/Login_Socio';" -->
-            <button class="volver"  onclick="action='/';">
+            <button class="btn btn-secondary"  onclick="action='/';">
                 Volver
             </button>
         </div>

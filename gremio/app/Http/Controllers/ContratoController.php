@@ -38,7 +38,7 @@ class ContratoController extends Controller
 
         }
 
-        if ($fecha->isBefore(\Carbon\Carbon::today())) {
+        if ($fecha->isBefore(\Carbon\Carbon::tomorrow())) {
             return redirect('/Crea_Contrato')->
             with('error', 'Falta introducir una Fecha Valida')->
             with('usuario', $_POST['usuario'])->

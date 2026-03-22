@@ -1,19 +1,21 @@
-@props([
-    'titulo'=>'Sin Título'
-])
+@props(['titulo' => 'Sin Título'])
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>{{ $titulo }}</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
 
         .container {
             background: rgba(0, 0, 0, 0.6);
             padding: 40px;
             border-radius: 15px;
-            width: 400px;
+            width: 500px;
         }
 
         img {
@@ -23,52 +25,82 @@
         }
 
         h1 {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #007BFF;
         }
 
         .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 16px;
+            width: 75%;
+            padding: 12px;
+            margin-top: 20px;
             border: none;
             border-radius: 8px;
+            font-size: 15px;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .volver {
-            display: block;
-            width: 25%;
-            justify-self: center;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .profesionales {
+        .btn-primary {
             background-color: #007BFF;
             color: white;
         }
 
-        .socios {
+        .btn-success {
             background-color: #28A745;
             color: white;
         }
 
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
         .btn:hover {
-            opacity: 0.8;
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .links {
+            margin-top: 15px;
+        }
+
+        .links a {
+            display: block;
+            margin-top: 10px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    {{ $slot }}
+{{ $slot }}
 
 </body>
 </html>

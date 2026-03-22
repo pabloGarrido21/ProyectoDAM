@@ -14,7 +14,7 @@
 
 <style>
     body {
-        margin: 0;
+        margin: 50px;
         font-family: Arial, sans-serif;
         background: linear-gradient(to right, #1f3740 , #9bd3ff);
         display: flex;
@@ -30,7 +30,7 @@
                       origen="PROFESIONAL" envia="/Modificar_Profesional">
 
 
-    <text>SECTOR</text>
+    <label>SECTOR</label><br>
     <select name="sec">
 
             <option value="{{ $original->id_sector }}">

@@ -8,19 +8,16 @@
 
 ])
 
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>{{ $titulo }}</title>
+
+
     <style>
 
-        .container {
+        .container, .container2 {
             background: rgba(0, 0, 0, 0.6);
             padding: 30px;
             border-radius: 15px;
@@ -28,97 +25,124 @@
         }
 
         .container2 {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 15px;
-            width: 1200px;
             text-align: center;
-        }
-
-
-        img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
         }
 
         h1 {
-            margin-bottom: 30px;
-            font-size: 30px;
+            margin-bottom: 25px;
+            font-size: 28px;
             text-align: center;
+            letter-spacing: 1px;
         }
 
-        text{
-            font-size: 25px;
-
+        text {
+            font-size: 18px;
+            opacity: 0.9;
         }
 
-
-        label{
-            font-weight: bold;
-            font-size: 25px;
+        label {
+            font-weight: 600;
+            font-size: 24px;
+            display: block;
+            margin-bottom: 3px;
+            color: #ffffff;
         }
 
-        .usuario{
-            margin-bottom: 30px;
+        .usuario {
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
-        .fila{
+        .fila {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            gap: 20px;
             margin-bottom: 15px;
         }
 
         table {
             border-collapse: collapse;
-            display:inline-block;
-
+            width: 100%;
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 10px;
         }
 
         th, td {
-            border: 1px solid black;
-            padding: 8px;
+            padding: 12px;
+            text-align: center;
         }
 
         th {
-            background-color: lightgray;
+            background: rgba(255,255,255,0.2);
+            font-weight: 600;
+        }
+
+        td {
+            background: rgba(255,255,255,0.05);
+        }
+
+        tr:hover td {
+            background: rgba(255,255,255,0.15);
+            transition: 0.3s;
         }
 
         .btn {
-            display:inline-block;
-            gap: 10px;
-            width: 25%;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 16px;
+            display: inline-block;
+            width: 200px;
+            padding: 12px;
+            margin: 10px 5px;
+            font-size: 15px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: 0.3s;
-
+            transition: all 0.3s ease;
+            font-weight: 600;
         }
 
-        .divi{
-            text-align: right;
-        }
-
-        .izquierda {
-            background-color: #007BFF;
+        .volver {
+            background: #dc3545;
             color: white;
-            text-align: left;
-
         }
 
         .derecha {
-            background-color: #28A745;
+            background: #28a745;
             color: white;
-
         }
 
         .btn:hover {
-            opacity: 0.8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            opacity: 0.95;
+        }
+
+        .divi {
+            text-align: right;
+        }
+
+
+        input[type="image"]:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .container, .container2 {
+                width: 90%;
+            }
+
+            .fila {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
+
+
 </head>
 <body>
 
@@ -128,8 +152,9 @@
         <div class="container">
             <h1>
                 MIS DATOS
-                <input type="image" src="https://illustoon.com/photo/3127.png"
-                       alt="Submit" width="48" height="48" onclick="action='/Envia_Modifica';">
+                <input type="image" src="https://png.pngtree.com/png-vector/20211106/ourmid/pngtree-flat-icon-edit-png-image_4023192.png"
+                       alt="Submit" width="48" height="48" onclick="action='/Envia_Modifica';"
+                       title="Modifica Datos Personales">
             </h1>
 
 
@@ -166,8 +191,9 @@
                     CONTRATOS TERMINADOS
 
                 @endif
-                <input type="image" src="https://illustoon.com/photo/3127.png"
-                       alt="Submit" width="48" height="48" onclick="action='{{ $accion }}{{ $tipo }}';">
+                <input type="image" src="https://w7.pngwing.com/pngs/12/646/png-transparent-transfer-flexible-miscellaneous-angle-trademark.png"
+                       alt="Submit" width="48" height="48" onclick="action='{{ $accion }}{{ $tipo }}';"
+                       title="Cambiar Contratos">
             </h1>
 
             <table>

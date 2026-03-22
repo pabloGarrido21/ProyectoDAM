@@ -12,7 +12,7 @@
 
 <style>
     body {
-        margin: 0;
+        margin: 50px;
         font-family: Arial, sans-serif;
         background: linear-gradient(to right, #1f3740 , #9bd3ff);
         display: flex;
@@ -25,11 +25,11 @@
 </style>
 
 
-<x-layout_Modifica_Datos tituloA="REGISTRO prof" tituloB="Registro Profesional"
+<x-layout_Registrarse tituloA="REGISTRO prof" tituloB="Registro Profesional"
                       origen="PROFESIONAL" envia="/Registro_Profesional">
 
 
-    <text>SECTOR</text>
+    <label> SECTOR: </label> <br>
     <select name="sector">
 
         @foreach ($sectores as $sector)
@@ -39,8 +39,7 @@
         @endforeach
 
     </select>
-    <br></br>
 
 
-</x-layout_Modifica_Datos>
+</x-layout_Registrarse>
 
