@@ -4,7 +4,7 @@
 
 <style>
     body {
-        margin: 70px;
+        margin: 100px;
         font-family: Arial, sans-serif;
         background: linear-gradient(to right, #1f3740 , #9bd3ff);
         display: flex;
