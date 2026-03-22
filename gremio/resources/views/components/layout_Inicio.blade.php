@@ -1,10 +1,10 @@
 @props([
     'titulo'=>'Sin Título',
-    'titulo2'=>'Sin Título',
     'tipo'=>session('tipo'),
     'accion' =>'',
     'datos' =>session('datos'),
-    'original'=>''
+    'original',
+    'origen'
 
 ])
 
@@ -156,7 +156,16 @@
         <div class="container2">
 
             <h1>
-                {{$titulo2}}
+                @if($tipo == "ACTIVO")
+                    CONTRATOS ACTIVOS
+
+                @elseif($tipo == "PENDIENTE")
+                    CONTRATOS PENDIENTES
+
+                @elseif($tipo == "TERMINADO")
+                    CONTRATOS TERMINADOS
+
+                @endif
                 <input type="image" src="https://illustoon.com/photo/3127.png"
                        alt="Submit" width="48" height="48" onclick="action='{{ $accion }}{{ $tipo }}';">
             </h1>
@@ -164,22 +173,36 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Email</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>Socio</th>
+                        <th>Profesional</th>
+                        <th>Oferta</th>
+                        <th>Precio</th>
+                        <th>Fecha_ini</th>
+
+                        @if($tipo == "TERMINADO")
+                            <th>Fecha_fin</th>
+                        @endif
+
                     </tr>
                 </thead>
 
                 <tbody>
                 @foreach ($datos as $fila)
                     <tr onclick="window.location=
-                    '{{ route('items.show', ['id'=> 'A','email' => $fila->email,
-                            'tipo' => $tipo, 'original' => $original]) }}'"
+                    '{{ route('items.show', ['id'=> 'A','contrato' => $fila->id,
+                            'tipo' => $tipo, 'original' => $original,
+                            'origen' => $origen])}}'"
                         style="cursor:pointer;">
 
-                        <td>{{ $fila->email }}</td>
-                        <td>{{ $fila->nombre }}</td>
-                        <td>{{ $fila->apellido }}</td>
+                        <td>{{ $fila->socio }}</td>
+                        <td>{{ $fila->profesional }}</td>
+                        <td>{{ $fila->oferta }}</td>
+                        <td>{{ $fila->precio }}</td>
+                        <td>{{ $fila->fecha_inicio }}</td>
+
+                        @if($tipo == "TERMINADO")
+                            <td>{{ $fila->fecha_fin }}</td>
+                        @endif
 
                     </tr>
                 @endforeach

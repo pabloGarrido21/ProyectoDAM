@@ -65,6 +65,13 @@ class OfertaController extends Controller
             with('datos', $datos);
         }
 
+        if ($_POST['duracion'] === "" or $_POST['duracion'] <= 0) {
+            return redirect('/Oferta_Profesional')->
+            with('error', 'Falta introducir una Duración Valida')->
+            with('usuario', $_POST['usuario'])->
+            with('datos', $datos);
+        }
+
         $query = DB::table("oferta")->
         where("id_profesional", "=", $usuario[0]->id)->
         where("titulo", "=",$_POST['titulo'] )->get();
@@ -82,7 +89,8 @@ class OfertaController extends Controller
             'profesion' => $usuario[0]->profesion,
             'id_profesional' => $usuario[0]->id,
             'ciudad' => $usuario[0]->ciudad,
-            'precio' => $_POST['precio']
+            'precio' => $_POST['precio'],
+            'duracion' => $_POST['duracion']
         ]);
 
 
@@ -139,6 +147,13 @@ class OfertaController extends Controller
             with('datos', $datos[0]);
         }
 
+        if ($_POST['duracion'] === "" or $_POST['duracion'] <= 0) {
+            return redirect('/Modifica_Oferta')->
+            with('error', 'Falta introducir una Duracion Valida')->
+            with('usuario', $_POST['usuario'])->
+            with('datos', $datos[0]);
+        }
+
         $query = DB::table("oferta")->
         where("id_profesional", "=", $usuario[0]->id)->
         where("titulo", "=",$_POST['titulo'] )->get();
@@ -158,7 +173,8 @@ class OfertaController extends Controller
             'profesion' => $usuario[0]->profesion,
             'id_profesional' => $usuario[0]->id,
             'ciudad' => $usuario[0]->ciudad,
-            'precio' => $_POST['precio']
+            'precio' => $_POST['precio'],
+            'duracion' => $_POST['duracion']
         ]);
 
 

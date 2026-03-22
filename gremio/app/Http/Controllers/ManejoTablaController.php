@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class ManejoTablaController extends Controller
 {
 
-    public function Datos_Ejemplo_Socio($tipo)
+    public function Contrato_Socio($tipo)
     {
         $query = DB::table("socio")->
         join("ciudad","socio.ciudad","=","ciudad.id")->
@@ -17,33 +17,56 @@ class ManejoTablaController extends Controller
             "ciudad.codigo_postal as cod_pos")->
         where("email", "=", $_POST['original'])->get();
 
-        if ($tipo == 'SOCIO')
+
+        $datos = DB::table("contrato")->
+        join("profesional","contrato.id_profesional","=","profesional.id")->
+        join("socio","contrato.id_socio","=","socio.id")->
+        join("oferta","contrato.id_oferta","=","oferta.id")->
+        select("contrato.*",
+            "socio.email as socio",
+            "profesional.email as profesional",
+            "oferta.titulo as oferta")->
+        where("socio.email", "=", $_POST['original']);
+
+        $envia = "";
+
+        if ($tipo == 'ACTIVO')
         {
 
-            $datos = DB::table("profesional")->
-            select('email','nombre','apellido')->get();
+            $datos = $datos->
+            where("contrato.estado", "=", "pendiente")->get();
 
-            return redirect('/Ini_Socio')->
-            with('socio',$query[0])->
-            with('tipo','PROFESIONAL')->
-            with('datos',$datos);
+            $envia = "PENDIENTE";
         }
-        else
+
+        if ($tipo == "PENDIENTE")
         {
 
-            $datos = DB::table("socio")->
-            select('email','nombre','apellido')->get();
+            $datos = $datos->
+            where("contrato.estado", "=", "terminado")->get();
 
-            return redirect('/Ini_Socio')->
-            with('socio',$query[0])->
-            with('tipo','SOCIO')->
-            with('datos',$datos);
+            $envia = "TERMINADO";
         }
+
+        if ($tipo == "TERMINADO")
+        {
+
+            $datos = $datos->
+            where("contrato.estado", "=", "activo")->get();
+
+            $envia = 'ACTIVO';
+        }
+
+
+        return redirect('/Ini_Socio')->
+        with('socio',$query[0])->
+        with('tipo',$envia)->
+        with('datos',$datos);
     }
 
 
 
-    public function Datos_Ejemplo_Prof($tipo)
+    public function Contrato_Prof($tipo)
     {
         $query = DB::table("profesional")->
         join("ciudad","profesional.ciudad","=","ciudad.id")->
@@ -55,72 +78,95 @@ class ManejoTablaController extends Controller
         where("email", "=", $_POST['original'])->get();
 
 
-        if ($tipo == 'SOCIO')
+        $datos = DB::table("contrato")->
+        join("profesional","contrato.id_profesional","=","profesional.id")->
+        join("socio","contrato.id_socio","=","socio.id")->
+        join("oferta","contrato.id_oferta","=","oferta.id")->
+        select("contrato.*",
+            "socio.email as socio",
+            "profesional.email as profesional",
+            "oferta.titulo as oferta")->
+        where("profesional.email", "=", $_POST['original']);
+
+        $envia = "";
+
+        if ($tipo == 'ACTIVO')
         {
 
-            $datos = DB::table("profesional")->
-            select('email','nombre','apellido')->get();
+            $datos = $datos->
+            where("contrato.estado", "=", "pendiente")->get();
 
-            return redirect('/Ini_Profesional')->
-            with('profesional',$query[0])->
-            with('tipo','PROFESIONAL')->
-            with('datos',$datos);
+            $envia = "PENDIENTE";
         }
-        else
+
+        if ($tipo == "PENDIENTE")
         {
 
-            $datos = DB::table("socio")->
-            select('email','nombre','apellido')->get();
+            $datos = $datos->
+            where("contrato.estado", "=", "terminado")->get();
 
-            return redirect('/Ini_Profesional')->
-            with('profesional',$query[0])->
-            with('tipo','SOCIO')->
-            with('datos',$datos);
+            $envia = "TERMINADO";
         }
+
+        if ($tipo == "TERMINADO")
+        {
+
+            $datos = $datos->
+            where("contrato.estado", "=", "activo")->get();
+
+            $envia = 'ACTIVO';
+        }
+
+
+        return redirect('/Ini_Profesional')->
+        with('profesional',$query[0])->
+        with('tipo',$envia)->
+        with('datos',$datos);
 
     }
 
-    public function Click_Ofertas_Socio(Request $request)
+    public function Click_Contrato(Request $request)
     {
 
         $original = $request->query('original');
         $tipo = $request->query('tipo');
-        $id = $request->query('email');
+        $contrato = $request->query('contrato');
+        $origen = $request->query('origen');
 
-        $query = DB::table("socio")->
-        join("ciudad","socio.ciudad","=","ciudad.id")->
-        select("socio.*",
-            "ciudad.nombre as ciudad",
-            "ciudad.codigo_postal as cod_pos")->
-        where("email", "=", $original)->get();
 
-        if ($tipo == 'SOCIO')
+        $datos = DB::table("contrato")->
+        join("profesional","contrato.id_profesional","=","profesional.id")->
+        join("socio","contrato.id_socio","=","socio.id")->
+        join("oferta","contrato.id_oferta","=","oferta.id")->
+        select("contrato.*",
+            "socio.email as socio_email",
+            "socio.nombre as socio_nombre",
+            "socio.apellido as socio_apellido",
+            "profesional.email as prof_email",
+            "profesional.nombre as prof_nombre",
+            "profesional.apellido as prof_apellido",
+            "oferta.titulo as oferta",
+            "oferta.duracion as duracion")->
+        where("contrato.id", "=", $contrato)->get();
+
+
+        if ($origen == 'SOCIO')
         {
-            $datos = DB::table("socio")->
-            join("ciudad","socio.ciudad","=","ciudad.id")->
-            select("socio.*",
-                "ciudad.nombre as ciudad",
-                "ciudad.codigo_postal as cod_pos")->
-            where("email", "=", $id)->get();
+            return redirect('/Vista_Contr_Socio')->
+            with('usuario',$original)->
+            with('datos',$datos[0])->
+            with('tipo',$tipo)->
+            with('origen',$origen);
+
         }
         else
         {
-
-            $datos = DB::table("profesional")->
-            join("ciudad","profesional.ciudad","=","ciudad.id")->
-            join("sector","profesional.profesion","=","sector.id")->
-            select("profesional.*",
-                "ciudad.nombre as ciudad",
-                "ciudad.codigo_postal as cod_pos",
-                "sector.nombre as sector")->
-            where("email", "=", $id)->get();
+            return redirect('/Vista_Contr_Profesional')->
+            with('usuario',$original)->
+            with('datos',$datos[0])->
+            with('tipo',$tipo)->
+            with('origen',$origen);
         }
-
-        return redirect('/Ofer_Socio')->
-        with('original',$query[0])->
-        with('datos',$datos[0])->
-        with('tipo',$tipo);
-
 
     }
 

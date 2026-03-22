@@ -33,14 +33,12 @@ Route::get('/Modificar_Socio', [ModificaController::class, 'Modifica_Socio']);
 Route::post('/Modificar_Socio', [ModificaController::class, 'Confirma_Socio']);
 
 Route::get('/Ini_Socio', [LoginController::class, 'Ini_Socio']);
-Route::post('/Ini_Socio/{tipo}', [ManejoTablaController::class, 'Datos_Ejemplo_Socio']);
-
-Route::get('/Ini_Socio/{id}', [ManejoTablaController::class, 'Click_Ofertas_Socio'])->
-name('items.show');
+Route::post('/Ini_Socio/{tipo}', [ManejoTablaController::class, 'Contrato_Socio']);
 
 Route::get('/Oferta_Socio', [OfertaController::class, 'Oferta_Socio']);
 Route::post('/Oferta_Socio/{tipo}', [ManejoTablaController::class, 'Filtro_Oferta']);
 
+Route::get('/Vista_Contr_Socio', [ContratoController::class, 'Contrato_Socio']);
 
 
 //Parte de Profesional
@@ -54,10 +52,13 @@ Route::get('/Modificar_Profesional', [ModificaController::class, 'Modifica_Profe
 Route::post('/Modificar_Profesional', [ModificaController::class, 'Confirma_Profesional']);
 
 Route::get('/Ini_Profesional', [LoginController::class, 'Ini_Profesional']);
-Route::post('/Ini_Profesional/{tipo}', [ManejoTablaController::class, 'Datos_Ejemplo_Prof']);
+Route::post('/Ini_Profesional/{tipo}', [ManejoTablaController::class, 'Contrato_Prof']);
 
 Route::get('/Oferta_Profesional', [OfertaController::class, 'Oferta_Profesional']);
 Route::post('/Oferta_Profesional', [OfertaController::class, 'Crear_Oferta']);
+
+Route::get('/Vista_Contr_Profesional', [ContratoController::class, 'Contrato_Profesional']);
+
 
 //Reenvios
 Route::post('/Envia_Registro', [EnviaFormController::class, 'Envia_Registro']);
@@ -80,7 +81,17 @@ Route::post('/Envia_Contrato', [EnviaFormController::class, 'Envia_Contrato']);
 Route::get('/Crea_Contrato', [EnviaFormController::class, 'Crea_Contrato']);
 Route::post('/Crea_Contrato', [ContratoController::class, 'Crea_Contrato']);
 
+
 Route::get('/Vista_Oferta_Socio', [OfertaController::class, 'Vista_Oferta_Socio']);
 Route::get('/Vista_Oferta_Profesional', [OfertaController::class, 'Vista_Oferta_Profesional']);
 Route::get('/Vista_Oferta/{datos}', [ManejoTablaController::class, 'Click_Ofertas'])->
 name('oferta.show');
+
+
+Route::get('/Vista_Contrato/{id}', [ManejoTablaController::class, 'Click_Contrato'])->
+name('items.show');
+
+Route::post('/Contrato_Termina', [ContratoController::class, 'Termina_Contrato']);
+Route::post('/Contrato_Acepta', [ContratoController::class, 'Acepta_Contrato']);
+Route::post('/Contrato_Rechaza', [ContratoController::class, 'Rechaza_Contrato']);
+

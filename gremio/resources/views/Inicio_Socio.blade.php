@@ -19,7 +19,8 @@
 </style>
 
 
-<x-layout_Inicio titulo="Inicio Socio" titulo2="CONTRATOS ACTIVOS" accion="/Ini_Socio/" original="{{$socio->email}}">
+<x-layout_Inicio titulo="Inicio Socio" accion="/Ini_Socio/" original="{{$socio->email}}"
+                 origen="{{$origen}}">
 
 
     <div class="usuario">

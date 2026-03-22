@@ -4,7 +4,8 @@
     'origen'=>session('origen'),
     'usuario' =>session('usuario'),
     'datos' =>session('datos'),
-    "oferta"
+    'tipo' => session('tipo'),
+    "contrato"
 
 ])
 
@@ -64,12 +65,6 @@
             margin-bottom: 15px;
         }
 
-        .filas{
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            margin-bottom: 15px;
-        }
-
         table {
             border-collapse: collapse;
             display:inline-block;
@@ -99,14 +94,17 @@
 
         }
 
-        .divi{
+        .divi_centro{
+            text-align: center;
+        }
+
+        .divi_derecha{
             text-align: right;
         }
 
         .izquierda {
             background-color: #007BFF;
             color: white;
-            text-align: left;
 
         }
 
@@ -130,21 +128,22 @@
         <input type="hidden" name="usuario" value="<?php echo $usuario;?>">
         <input type="hidden" name="origen" value="<?php echo $origen;?>">
         <input type="hidden" name="original" value="<?php echo $usuario;?>">
-        <input type="hidden" name="oferta" value="<?php echo $datos->id;?>">
+        <input type="hidden" name="contrato" value="<?php echo $datos->id;?>">
 
         <div class="container">
             <h1>
-                OFERTA SELECCIONADA
+                CONTRATO SELECCIONADO
             </h1>
 
+            {{$slot}}
+
             <div class="usuario">
-                <label>TITULO:</label> <text>{{$datos->titulo}}</text>
+                <label>SOCIO:</label> <text>{{$datos->socio_email}}</text>
             </div>
 
-            <div class="filas">
-                <div> <label> SECTOR: </label> <text>{{$datos->sector}}</text> </div>
-                <div> <label> PRECIO: </label> <text>{{$datos->precio}}€</text> </div>
-                <div> <label> DURACION: </label> <text>{{$datos->duracion}} Días</text> </div>
+            <div class="fila">
+                <div> <label> NOMBRE: </label> <text>{{$datos->socio_nombre}}</text> </div>
+                <div> <label> APELLIDO: </label> <text>{{$datos->socio_apellido}}</text> </div>
             </div>
 
             <br>
@@ -155,18 +154,39 @@
             </div>
 
             <div class="fila">
-                <div>  <label> NOMBRE: </label> <text>{{$datos->prof_nombre}}</text> </div>
+                <div> <label> NOMBRE: </label> <text>{{$datos->prof_nombre}}</text> </div>
                 <div> <label> APELLIDO: </label> <text>{{$datos->prof_apellido}}</text> </div>
             </div>
 
-            <div class="fila">
-                <div> <label> TELE: </label> <text>{{$datos->prof_telefono}}</text> </div>
-                <div> <label> CIUDAD: </label> <text>{{$datos->ciudad}}</text> </div>
-            </div>
-
+            <br>
             <br>
 
-            {{$slot}}
+            <div class="usuario">
+                <label>OFERTA:</label> <text>{{$datos->oferta}}</text>
+            </div>
+
+            <div class="fila">
+                <div>
+                    <label> DESCRIPCIÓN: </label><br>
+                    <textarea name="descripcion" readonly
+                              class="input-grande">{{$datos->comentario}}</textarea>
+                </div>
+                <div>
+                    <label> DURACION: </label>
+                    <text>{{$datos->duracion}}</text>
+                    <br>
+                    <label> FECHA INICIO: </label>
+                    <text>{{$datos->fecha_inicio}}</text>
+
+                    @if($tipo == "TERMINADO")
+                        <br>
+                        <label> FECHA FIN: </label>
+                        <text>{{$datos->fecha_fin}}</text>
+
+                    @endif
+
+                </div>
+            </div>
 
         </div>
 

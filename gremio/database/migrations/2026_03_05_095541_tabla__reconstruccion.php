@@ -74,6 +74,7 @@ return new class extends Migration
             $table->foreignId('ciudad')->
                 references('id')->on('ciudad')->onDelete('cascade');
             $table->double('precio');
+            $table->integer('duracion');
 
         });
 

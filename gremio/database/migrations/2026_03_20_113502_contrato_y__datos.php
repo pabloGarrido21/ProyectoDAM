@@ -71,7 +71,8 @@ return new class extends Migration
             'profesion' => 1,
             'id_profesional' => 1,
             'ciudad' => 1,
-            'precio' => 1000
+            'precio' => 1000,
+            'duracion' => 1
         ]);
 
 

@@ -2,7 +2,8 @@
 
     'origen' => 'PROFESIONAL',
     'titulo' => '',
-    'precio' => ''
+    'precio' => '',
+    'duracion' => ''
 
 ])
 
@@ -60,7 +61,11 @@
         <div>
             <text>Precio:</text>
             <input  type="number" name="precio"  value="<?php echo $precio;?>">
-            <text>€</text>
+            <text>€</text><br>
+
+            <text>Duracion:</text>
+            <input  type="number" name="duracion"  value="<?php echo $duracion;?>">
+            <text>días</text>
         </div>
 
     </div>

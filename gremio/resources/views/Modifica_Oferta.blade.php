@@ -6,7 +6,8 @@
     'oferta' => session('oferta'),
     "titulo_orgin",
     "titulo",
-    "precio"
+    "precio",
+    'duracion'
 
 
 ])
@@ -85,6 +86,7 @@
             margin-bottom: 15px;
         }
 
+
         table {
             border-collapse: collapse;
             display:inline-block;
@@ -160,8 +162,12 @@
 
         <div class="fila">
             <div> <label> SECTOR: </label> <text>{{$datos->sector}}</text> </div>
-            <div> <label> PRECIO:</label>
-                <input  type="text" name="precio"  value="<?php echo $datos->precio;?>">
+            <div>
+                <label> PRECIO:</label>
+                <input  type="text" name="precio"  value="<?php echo $datos->precio;?>"> €
+                <br>
+                <label> DURACION:</label>
+                <input  type="text" name="duracion"  value="<?php echo $datos->duracion;?>"> Días
             </div>
         </div>
 

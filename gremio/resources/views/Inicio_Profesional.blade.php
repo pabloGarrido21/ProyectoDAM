@@ -20,7 +20,8 @@
 </style>
 
 
-<x-layout_Inicio titulo="Inicio Profesional" titulo2="CONTRATOS ACTIVOS" accion="/Ini_Profesional/">
+<x-layout_Inicio titulo="Inicio Profesional" accion="/Ini_Profesional/"
+                 original="{{$profesional->email}}" origen="{{$origen}}">
 
     <div class="usuario">
         <label>USUARIO:</label> <text>{{$profesional->email}}</text>

@@ -85,12 +85,20 @@ class ModificaController extends Controller
             where("email", "=", $_POST['usuario'])->get();
 
 
-            $datos = DB::table("socio")->
-            select('email','nombre','apellido')->get();
+            $datos = DB::table("contrato")->
+            join("profesional","contrato.id_profesional","=","profesional.id")->
+            join("socio","contrato.id_socio","=","socio.id")->
+            join("oferta","contrato.id_oferta","=","oferta.id")->
+            select("contrato.*",
+                "socio.email as socio",
+                "profesional.email as profesional",
+                "oferta.titulo as oferta")->
+            where("socio.email", "=", $_POST['usuario'])->
+            where("contrato.estado", "=", "activo")->get();
 
             return redirect('/Ini_Socio')->
             with('socio',$query[0])->
-            with('tipo','SOCIO')->
+            with('tipo','ACTIVO')->
             with('datos',$datos);
         }
 
@@ -190,12 +198,20 @@ class ModificaController extends Controller
                 "sector.nombre as sector")->
             where("email", "=", $_POST['usuario'])->get();
 
-            $datos = DB::table("profesional")->
-            select('email','nombre','apellido')->get();
+            $datos = DB::table("contrato")->
+            join("profesional","contrato.id_profesional","=","profesional.id")->
+            join("socio","contrato.id_socio","=","socio.id")->
+            join("oferta","contrato.id_oferta","=","oferta.id")->
+            select("contrato.*",
+                "socio.email as socio",
+                "profesional.email as profesional",
+                "oferta.titulo as oferta")->
+            where("profesional.email", "=", $_POST['usuario'])->
+            where("contrato.estado", "=", "activo")->get();
 
             return redirect('/Ini_Profesional')->
             with('profesional',$query[0])->
-            with('tipo','PROFESIONAL')->
+            with('tipo','ACTIVO')->
             with('datos',$datos);
         }
 
